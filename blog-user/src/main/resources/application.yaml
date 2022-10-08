@@ -1,0 +1,70 @@
+# 配置端口
+server:
+  port: 8888
+
+# 配置mysql数据库
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tx_blog?serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password: 123123
+    hikari:
+      minimum-idle: 5
+      # 空闲连接存活最大时间，默认600000（10分钟）
+      idle-timeout: 180000
+      # 连接池最大连接数，默认是10
+      maximum-pool-size: 10
+      # 此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      auto-commit: true
+      # 连接池名称
+      pool-name: MyHikariCP
+      # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      max-lifetime: 1800000
+      # 数据库连接超时时间,默认30秒，即30000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  # 邮箱配置
+  mail:
+    username: tan00xu@163.com
+    password: YNXBMUERDASFOPNW
+    host: smtp.163.com
+    nickname: 饮梦
+    # 开启加密验证
+    properties:
+      mail.smtp.ssl:
+        enable: true
+        auth: true
+    default-encoding: UTF-8
+  # Redis配置
+  redis:
+    host: 47.109.33.195
+    port: 6379
+    password: 123123
+    database: 0
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: 100ms
+  # rabbitmq配置
+  rabbitmq:
+    host: 47.109.33.195
+    port: 5672
+    username: admin
+    password: admin
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3 #最大重试次数
+          initial-interval: 3000 #重试间隔时间（单位毫秒）
+springdoc:
+  api-docs:
+    # 禁用 /v3/api-docs
+    enabled: true
+  swagger-ui:
+    # 禁用 /swagger-ui/index.html
+    enabled: true
