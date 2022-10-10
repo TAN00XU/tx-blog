@@ -16,7 +16,7 @@ import static com.tan00xu.enums.StatusCodeEnum.FAIL;
  */
 @Getter
 @AllArgsConstructor
-public class BizException extends Exception {
+public class BizException extends RuntimeException {
 
     /**
      * 错误码
@@ -32,6 +32,11 @@ public class BizException extends Exception {
         this.message = message;
     }
 
+    /**
+     * 业务异常
+     *
+     * @param statusCodeEnum 状态码枚举
+     */
     public BizException(StatusCodeEnum statusCodeEnum) {
         this.code = statusCodeEnum.getCode();
         this.message = statusCodeEnum.getDesc();

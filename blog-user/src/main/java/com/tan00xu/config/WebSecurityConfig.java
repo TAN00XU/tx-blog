@@ -96,6 +96,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .anyRequest().permitAll()
                 .and()
+                //允许跨域
+                .cors()
+                .and()
                 // 关闭跨站请求防护
                 .csrf().disable().exceptionHandling()
                 // 未登录处理
@@ -106,6 +109,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .maximumSessions(20)
                 .sessionRegistry(sessionRegistry());
+
     }
 
 }

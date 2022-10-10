@@ -37,12 +37,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
     public Result<?> sendCode(String username) {
         // 校验账号是否合法
         if (!checkEmail(username)) {
-            try {
-                throw new BizException("请输入正确邮箱");
-            } catch (Exception e) {
-                e.printStackTrace();
-                return Result.fail();
-            }
+            throw new BizException("请输入正确邮箱");
         }
         // 生成六位随机验证码发送
         String code = getRandomCode();
@@ -53,10 +48,13 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
                 .content("您的验证码为 " + code + " 有效期15分钟，请不要告诉他人哦！")
                 .build();
 
-        //手动序列化的方式
-//        rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, "", new Message(JSON.toJSONBytes(emailDTO), new MessageProperties()));
-        //设置对消息进行序列化
-//        rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
+        /**
+         *  //手动序列化的方式
+         *  rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, "", new Message(JSON.toJSONBytes(emailDTO), new MessageProperties()));
+         *  //设置对消息进行序列化
+         *  rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
+         */
+
         rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, "", emailDTO);
         // 将验证码存入redis，设置过期时间为15分钟
         redisService.set(USER_CODE_KEY + username, code, CODE_EXPIRE_TIME);

@@ -42,7 +42,5 @@ public class UserAuthController {
         return userAuthService.sendCode(email);
     }
 
-    private Result<?> register() {
-        return null;
-    }
+   
 }

@@ -101,7 +101,7 @@ public class UserDetailDTO implements UserDetails {
     private String ipAddress;
 
     /**
-     * ip来源
+     * ip的来源
      */
     private String ipSource;
 
@@ -128,6 +128,7 @@ public class UserDetailDTO implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        //返回角色信息
         return this.roleList.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toSet());

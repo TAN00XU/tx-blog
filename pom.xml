@@ -16,6 +16,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <!--统一版本管理-->
         <spring-boot.version>2.7.3</spring-boot.version>
         <spring-boot-security.version>2.7.3</spring-boot-security.version>
@@ -28,6 +29,7 @@
         <knife4j.version>3.0.3</knife4j.version>
         <fastjson.version>2.0.7</fastjson.version>
         <rabbitMQ.version>2.7.3</rabbitMQ.version>
+        <userAgentUtils.vertion>1.21</userAgentUtils.vertion>
 
     </properties>
     <parent>
@@ -104,6 +106,13 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+
+            <!--解析 User-Agent -->
+            <dependency>
+                <groupId>eu.bitwalker</groupId>
+                <artifactId>UserAgentUtils</artifactId>
+                <version>${userAgentUtils.vertion}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
