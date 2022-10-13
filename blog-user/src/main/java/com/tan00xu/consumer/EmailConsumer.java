@@ -44,7 +44,7 @@ public class EmailConsumer {
         message.setTo(emailDTO.getEmail());
         message.setSubject(emailDTO.getSubject());
         message.setText(emailDTO.getContent());
-        CmdOutputInformationUtils.info(emailDTO);
+        CmdOutputInformationUtils.info("consumer.EmailConsumer=>\n" + emailDTO);
 
         //发送邮件
         javaMailSender.send(message);

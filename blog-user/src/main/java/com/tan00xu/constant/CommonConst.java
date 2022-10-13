@@ -70,6 +70,11 @@ public class CommonConst {
     public static final String PROVINCE = "省";
 
     /**
+     * 区
+     */
+    public static final String DISTRICT = "区";
+
+    /**
      * 市
      */
     public static final String CITY = "市";

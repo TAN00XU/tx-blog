@@ -26,28 +26,28 @@ public class PageVO {
     /**
      * 页面id
      */
-    @Schema(name = "id", title = "页面id", required = true, type = "Integer")
+    @Schema(name = "id", description = "页面id", required = true, type = "Integer")
     private Integer id;
 
     /**
      * 页面名
      */
     @NotBlank(message = "页面名称不能为空")
-    @Schema(name = "pageName", title = "页面名称", required = true, type = "String")
+    @Schema(name = "pageName", description = "页面名称", required = true, type = "String")
     private String pageName;
 
     /**
      * 页面标签
      */
     @NotBlank(message = "页面标签不能为空")
-    @Schema(name = "pageLabel", title = "页面标签", required = true, type = "String")
+    @Schema(name = "pageLabel", description = "页面标签", required = true, type = "String")
     private String pageLabel;
 
     /**
      * 页面封面
      */
     @NotBlank(message = "页面封面不能为空")
-    @Schema(name = "pageCover", title = "页面封面", required = true, type = "String")
+    @Schema(name = "pageCover", description = "页面封面", required = true, type = "String")
     private String pageCover;
 
 }

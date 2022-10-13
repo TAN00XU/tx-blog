@@ -18,7 +18,7 @@ import java.util.List;
  * @author 饮梦 TAN00XU
  * @date 2022/10/07 18:39:35
  */
-@Tag(name = "留言")
+@Tag(name = "留言模块")
 @RestController
 @RequestMapping("/web")
 public class MessageController {

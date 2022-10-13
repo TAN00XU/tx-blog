@@ -1,31 +1,26 @@
-package com.tan00xu.entity;
+package com.tan00xu.dto;
 
-import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 
 /**
- * 友链列表类
+ * 友情链接DTO类
  *
  * @author 饮梦 TAN00XU
- * @date 2022/09/24 22:05:18
+ * @date 2022/10/13 13:51:42
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("tb_friend_link")
-public class FriendLink {
+public class FriendlyLinkDTO {
 
     /**
      * id
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -47,17 +42,5 @@ public class FriendLink {
      * 介绍
      */
     private String linkIntro;
-
-    /**
-     * 创建时间
-     */
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
-
-    /**
-     * 修改时间
-     */
-    @TableField(fill = FieldFill.UPDATE)
-    private LocalDateTime updateTime;
 
 }

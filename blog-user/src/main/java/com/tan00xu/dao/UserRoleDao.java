@@ -1,17 +1,17 @@
 package com.tan00xu.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.tan00xu.entity.UserInfo;
+import com.tan00xu.entity.UserRole;
 import org.apache.ibatis.annotations.Mapper;
 
 
 /**
- * 用户信息Dao类
+ * 用户角色Dao类
  *
  * @author 饮梦 TAN00XU
- * @date 2022/10/10 23:19:28
+ * @date 2022/10/11 10:13:47
  */
 @Mapper
-public interface UserInfoDao extends BaseMapper<UserInfo> {
+public interface UserRoleDao extends BaseMapper<UserRole> {
 
 }

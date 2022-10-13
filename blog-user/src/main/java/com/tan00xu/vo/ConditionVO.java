@@ -25,79 +25,79 @@ public class ConditionVO {
     /**
      * 页码
      */
-    @Schema(name = "current", title = "页码", type = "Long")
+    @Schema(name = "current", description = "页码", type = "Long")
     private Long current;
 
     /**
      * 条数
      */
-    @Schema(name = "size", title = "条数", type = "Long")
+    @Schema(name = "size", description = "条数", type = "Long")
     private Long size;
 
     /**
      * 搜索内容
      */
-    @Schema(name = "keywords", title = "搜索内容", type = "String")
+    @Schema(name = "keywords", description = "搜索内容", type = "String")
     private String keywords;
 
     /**
      * 分类id
      */
-    @Schema(name = "categoryId", title = "分类id", type = "Integer")
+    @Schema(name = "categoryId", description = "分类id", type = "Integer")
     private Integer categoryId;
 
     /**
      * 标签id
      */
-    @Schema(name = "tagId", title = "标签id", type = "Integer")
+    @Schema(name = "tagId", description = "标签id", type = "Integer")
     private Integer tagId;
 
     /**
      * 相册id
      */
-    @Schema(name = "albumId", title = "相册id", type = "Integer")
+    @Schema(name = "albumId", description = "相册id", type = "Integer")
     private Integer albumId;
 
     /**
      * 登录类型
      */
-    @Schema(name = "type", title = "登录类型", type = "Integer")
+    @Schema(name = "type", description = "登录类型", type = "Integer")
     private Integer loginType;
 
     /**
      * 类型
      */
-    @Schema(name = "type", title = "类型", type = "Integer")
+    @Schema(name = "type", description = "类型", type = "Integer")
     private Integer type;
 
     /**
      * 状态
      */
-    @Schema(name = "status", title = "状态", type = "Integer")
+    @Schema(name = "status", description = "状态", type = "Integer")
     private Integer status;
 
     /**
      * 开始时间
      */
-    @Schema(name = "startTime", title = "开始时间", type = "LocalDateTime")
+    @Schema(name = "startTime", description = "开始时间", type = "LocalDateTime")
     private LocalDateTime startTime;
 
     /**
      * 结束时间
      */
-    @Schema(name = "endTime", title = "结束时间", type = "LocalDateTime")
+    @Schema(name = "endTime", description = "结束时间", type = "LocalDateTime")
     private LocalDateTime endTime;
 
     /**
      * 是否删除
      */
-    @Schema(name = "isDelete", title = "是否删除", type = "Integer")
+    @Schema(name = "isDelete", description = "是否删除", type = "Integer")
     private Integer isDelete;
 
     /**
      * 是否审核
      */
-    @Schema(name = "isReview", title = "是否审核", type = "Integer")
+    @Schema(name = "isReview", description = "是否审核", type = "Integer")
     private Integer isReview;
 
 }

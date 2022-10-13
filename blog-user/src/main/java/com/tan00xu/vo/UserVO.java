@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "用户账号")
+@Schema(description = "用户账号信息")
 public class UserVO {
 
     /**
@@ -29,7 +29,7 @@ public class UserVO {
      */
     @NotBlank(message = "邮箱不能为空")
     @Email(message = "邮箱格式不正确")
-    @Schema(name = "username", title = "用户名", required = true, type = "String")
+    @Schema(name = "username", description = "用户名", required = true, type = "String")
     private String username;
 
     /**
@@ -37,14 +37,14 @@ public class UserVO {
      */
     @Size(min = 6, message = "密码不能少于6位")
     @NotBlank(message = "密码不能为空")
-    @Schema(name = "password", title = "密码", required = true, type = "String")
+    @Schema(name = "password", description = "密码", required = true, type = "String")
     private String password;
 
     /**
      * 验证码
      */
     @NotBlank(message = "验证码不能为空")
-    @Schema(name = "code", title = "邮箱验证码", required = true, type = "String")
+    @Schema(name = "code", description = "邮箱验证码", required = true, type = "String")
     private String code;
 
 }

@@ -1,7 +1,6 @@
 package com.tan00xu.service;
 
 
-import com.tan00xu.vo.Result;
 import com.tan00xu.vo.WebsiteConfigVO;
 
 /**
@@ -16,7 +15,11 @@ public interface BlogInfoService {
      *
      * @return {@link WebsiteConfigVO} 网站配置
      */
-    Result<WebsiteConfigVO> getWebsiteConfig();
+    WebsiteConfigVO getWebsiteConfig();
 
 
+    /**
+     * 上传访客信息
+     */
+    void report();
 }

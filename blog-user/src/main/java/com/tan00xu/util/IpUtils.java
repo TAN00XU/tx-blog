@@ -43,6 +43,8 @@ public class IpUtils {
             }
             if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getRemoteAddr();
+                /*防止本地访问出现ipv6*/
+                ipAddress = ipAddress.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ipAddress;
                 if ("127.0.0.1".equals(ipAddress)) {
                     // 根据网卡取本机配置的IP
                     InetAddress inet = null;
@@ -68,7 +70,7 @@ public class IpUtils {
     }
 
     /**
-     * 解析ip地址
+     * 解析ip地址，获取地理信息
      *
      * @param ipAddress ip地址
      * @return 解析后的ip地址

@@ -4,6 +4,15 @@ server:
 
 # 配置mysql数据库
 spring:
+  #  开发工具
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java #重启目录
+      exclude: WEB-INF/**  #排除文件(不重启项目)
+    freemarker:
+      cache: false
+
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -63,8 +72,17 @@ spring:
           initial-interval: 3000 #重试间隔时间（单位毫秒）
 springdoc:
   api-docs:
-    # 禁用 /v3/api-docs
+    # 是否禁用 /v3/api-docs
     enabled: true
   swagger-ui:
-    # 禁用 /swagger-ui/index.html
+    # 是否禁用 /swagger-ui/index.html
     enabled: true
+# 配置MybatisPlus
+mybatis-plus:
+  #扫描路径
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    #日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #驼峰
+    map-underscore-to-camel-case: true

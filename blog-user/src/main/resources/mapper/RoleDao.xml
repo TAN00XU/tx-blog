@@ -23,6 +23,15 @@
           AND is_anonymous = 0
     </select>
 
+
+    <select id="listRolesByUserInfoId" resultType="java.lang.String">
+        SELECT role_label
+        FROM tb_role r,
+        tb_user_role ur
+        WHERE r.id = ur.role_id
+        AND ur.user_id = #{userInfoId}
+    </select>
+
     <resultMap id="RoleMap" type="com.tan00xu.dto.RoleDTO">
         <id column="id" property="id"/>
         <result column="role_name" property="roleName"/>
@@ -34,22 +43,12 @@
                 <arg column="resource_id"/>
             </constructor>
         </collection>
-        <collection property="menuIdList" ofType="java.lang.Integer">
+        <collection property="menuIdList" javaType="arraylist" ofType="java.lang.Integer">
             <constructor>
                 <arg column="menu_id"/>
             </constructor>
         </collection>
     </resultMap>
-
-
-    <select id="listRolesByUserInfoId" resultType="java.lang.String">
-        SELECT role_label
-        FROM tb_role r,
-             tb_user_role ur
-        WHERE r.id = ur.role_id
-          AND ur.user_id = #{userInfoId}
-    </select>
-
     <select id="listRoles" resultMap="RoleMap">
         SELECT
         r.id,
@@ -70,7 +69,7 @@
         FROM
         tb_role
         <where>
-            <if test="conditionVO.keywords != null ">
+            <if test="conditionVO.keywords != null">
                 role_name like concat('%',#{conditionVO.keywords},'%')
             </if>
         </where>

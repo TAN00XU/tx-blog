@@ -24,7 +24,7 @@ public class BlogInfoVO {
     /**
      * 关于我内容
      */
-    @Schema(name = "aboutContent", title = "关于我内容", required = true, type = "String")
+    @Schema(name = "aboutContent", description = "关于我内容", required = true, type = "String")
     private String aboutContent;
 
 }

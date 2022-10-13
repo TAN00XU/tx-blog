@@ -29,7 +29,8 @@
         <knife4j.version>3.0.3</knife4j.version>
         <fastjson.version>2.0.7</fastjson.version>
         <rabbitMQ.version>2.7.3</rabbitMQ.version>
-        <userAgentUtils.vertion>1.21</userAgentUtils.vertion>
+        <userAgentUtils.version>1.21</userAgentUtils.version>
+        <sensitive-word.version>0.2.0</sensitive-word.version>
 
     </properties>
     <parent>
@@ -48,11 +49,34 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>2.7.3</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.13.2</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-security</artifactId>
                 <version>${spring-boot-security.version}</version>
             </dependency>
+
+            <!--热部署-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>2.7.3</version>
+
+                <!--                <optional>true</optional>  &lt;!&ndash; 不能被其它模块继承，如果多个子模块可以去掉  不必须 &ndash;&gt;-->
+                <scope>runtime</scope>     <!-- 只在运行时起作用  打包时不打进去 -->
+            </dependency>
+
             <!--redis依赖-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -108,11 +132,18 @@
                 <version>${fastjson.version}</version>
             </dependency>
 
-            <!--解析 User-Agent -->
+            <!--解析 User-Agent 浏览器、操作系统-->
             <dependency>
                 <groupId>eu.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
-                <version>${userAgentUtils.vertion}</version>
+                <version>${userAgentUtils.version}</version>
+            </dependency>
+            <!--sensitive-word 基于 DFA 算法实现的高性能敏感词工具。-->
+            <!--https://github.com/houbb/sensitive-word-->
+            <dependency>
+                <groupId>com.github.houbb</groupId>
+                <artifactId>sensitive-word</artifactId>
+                <version>${sensitive-word.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
