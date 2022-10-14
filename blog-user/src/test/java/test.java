@@ -1,7 +1,11 @@
 import com.tan00xu.BlogUserApplication;
+import com.tan00xu.dao.RoleDao;
+import com.tan00xu.dto.RoleDTO;
 import com.tan00xu.service.RedisService;
 import com.tan00xu.service.impl.ArticleServiceImpl;
+import com.tan00xu.util.CmdOutputInformationUtils;
 import com.tan00xu.util.IpUtils;
+import com.tan00xu.vo.ConditionVO;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 /**
  * @author 饮梦 TAN00XU
@@ -62,7 +68,7 @@ public class test {
     public static String getProvince(String name) {
         String provinceName = "";
         if (StringUtils.isNotBlank(name)) {
-            int index = 0;
+            int index;
             if ((index = name.indexOf("省")) > 0 ||
                     (index = name.indexOf("区")) > 0 ||
                     (index = name.indexOf("市")) > 0) {
@@ -94,4 +100,15 @@ public class test {
         String encode = passwordEncoder.encode("123123");
         System.out.println(encode);
     }
+
+    @Autowired
+    RoleDao roleDao;
+
+    @Test
+    public void testRoleDao() {
+        List<RoleDTO> roleDTOS = roleDao.listRoles(0L, 5L, new ConditionVO());
+        roleDTOS.forEach(CmdOutputInformationUtils::debug);
+    }
+
+
 }

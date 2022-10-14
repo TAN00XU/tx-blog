@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 
 /**
- * 类别类
+ * 文章分类类
  *
  * @author 饮梦 TAN00XU
  * @date 2022/09/24 22:04:50

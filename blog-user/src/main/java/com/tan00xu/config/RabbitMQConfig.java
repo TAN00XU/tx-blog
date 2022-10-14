@@ -48,9 +48,13 @@ public class RabbitMQConfig {
                 .build();
     }
 
-
+    /**
+     * 绑定邮件队列
+     *
+     * @return {@link Binding}
+     */
     @Bean
-    public Binding bindingEmailDirect() {
+    public Binding bindingEmailFanout() {
         return BindingBuilder
                 .bind(emailQueue())
                 .to(emailExchange());
@@ -65,6 +69,7 @@ public class RabbitMQConfig {
     @Bean
     public RabbitTemplate jacksonRabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        //设置消息转换器
         rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
         return rabbitTemplate;
     }
@@ -78,8 +83,11 @@ public class RabbitMQConfig {
      */
     @Bean
     public RabbitListenerContainerFactory<?> rabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
+        //简单的RabbitMQ监听器容器工厂
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        //设置连接工厂
         factory.setConnectionFactory(connectionFactory);
+        //设置消息转换器
         factory.setMessageConverter(new Jackson2JsonMessageConverter());
         return factory;
     }

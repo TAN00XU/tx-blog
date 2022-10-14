@@ -27,9 +27,9 @@
     <select id="listRolesByUserInfoId" resultType="java.lang.String">
         SELECT role_label
         FROM tb_role r,
-        tb_user_role ur
+             tb_user_role ur
         WHERE r.id = ur.role_id
-        AND ur.user_id = #{userInfoId}
+          AND ur.user_id = #{userInfoId}
     </select>
 
     <resultMap id="RoleMap" type="com.tan00xu.dto.RoleDTO">
@@ -50,33 +50,30 @@
         </collection>
     </resultMap>
     <select id="listRoles" resultMap="RoleMap">
-        SELECT
-        r.id,
-        role_name,
-        role_label,
-        r.create_time,
-        r.is_disable,
-        rr.resource_id,
-        rm.menu_id
+        SELECT r.id,
+               role_name,
+               role_label,
+               r.create_time,
+               r.is_disable,
+               rr.resource_id,
+               rm.menu_id
         FROM
         (
-        SELECT
-        id,
-        role_name,
-        role_label,
-        create_time,
-        is_disable
-        FROM
-        tb_role
+        SELECT id,
+               role_name,
+               role_label,
+               create_time,
+               is_disable
+        FROM tb_role
         <where>
             <if test="conditionVO.keywords != null">
-                role_name like concat('%',#{conditionVO.keywords},'%')
+                role_name like concat('%', #{conditionVO.keywords}, '%')
             </if>
         </where>
         LIMIT #{current}, #{size}
         ) r
-        LEFT JOIN tb_role_resource rr ON r.id = rr.role_id
-        LEFT JOIN tb_role_menu rm on r.id = rm.role_id
+            LEFT JOIN tb_role_resource rr ON r.id = rr.role_id
+            LEFT JOIN tb_role_menu rm on r.id = rm.role_id
         ORDER BY r.id
     </select>
 </mapper>

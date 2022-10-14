@@ -2,8 +2,10 @@ package com.tan00xu.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tan00xu.dto.ArchiveDTO;
 import com.tan00xu.dto.ArticleHomeDTO;
 import com.tan00xu.entity.Article;
+import com.tan00xu.vo.PageResult;
 
 import java.util.List;
 
@@ -22,5 +24,12 @@ public interface ArticleService extends IService<Article> {
      * @return 文章列表
      */
     List<ArticleHomeDTO> listArticles();
+
+    /**
+     * 查询文章归档
+     *
+     * @return 文章归档
+     */
+    PageResult<ArchiveDTO> listArchives();
 
 }

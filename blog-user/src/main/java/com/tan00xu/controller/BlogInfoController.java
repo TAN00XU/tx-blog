@@ -49,5 +49,18 @@ public class BlogInfoController {
         return Result.ok();
     }
 
+
+    /**
+     * 查看关于我信息
+     *
+     * @return {@link Result<String>} 关于我信息
+     */
+    @Operation(summary = "查看关于我信息")
+    @GetMapping("/about")
+    public Result<String> getAbout() {
+        return Result.ok(blogInfoService.getAbout());
+    }
+
+
 }
 

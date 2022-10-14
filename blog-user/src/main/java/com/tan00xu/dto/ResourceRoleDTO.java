@@ -4,11 +4,12 @@ import lombok.Data;
 
 import java.util.List;
 
+
 /**
- * 资源角色dto类
+ * 资源角色DTO类
  *
- * @author yezhiqiu
- * @date 2021/07/28
+ * @author 饮梦 TAN00XU
+ * @date 2022/10/14 15:38:42
  */
 @Data
 public class ResourceRoleDTO {

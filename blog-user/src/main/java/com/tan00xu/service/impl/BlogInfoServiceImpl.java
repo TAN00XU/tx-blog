@@ -76,9 +76,6 @@ public class BlogInfoServiceImpl implements BlogInfoService {
             String ipSource = IpUtils.getIpSource(ipAddress);
             if (StringUtils.isNotBlank(ipSource)) {
                 ipSource = getProvince(ipSource);
-//                ipSource = ipSource.substring(0, 2)
-//                        .replaceAll(PROVINCE, "")
-//                        .replaceAll(CITY, "");
                 redisService.hIncr(VISITOR_AREA, ipSource, 1L);
             } else {
                 redisService.hIncr(VISITOR_AREA, UNKNOWN, 1L);
@@ -99,7 +96,7 @@ public class BlogInfoServiceImpl implements BlogInfoService {
     public String getProvince(String name) {
         String provinceName = "";
         if (StringUtils.isNotBlank(name)) {
-            int index = 0;
+            int index;
             if ((index = name.indexOf(PROVINCE)) > 0 ||
                     (index = name.indexOf(DISTRICT)) > 0 ||
                     (index = name.indexOf(CITY)) > 0) {
@@ -109,5 +106,9 @@ public class BlogInfoServiceImpl implements BlogInfoService {
         return provinceName;
     }
 
-
+    @Override
+    public String getAbout() {
+        Object value = redisService.get(ABOUT);
+        return Objects.nonNull(value) ? value.toString() : "";
+    }
 }

@@ -20,6 +20,16 @@ public interface BlogInfoService {
 
     /**
      * 上传访客信息
+     *
+     * @description 本数据直接存在redis中
      */
     void report();
+
+    /**
+     * 获取关于我内容
+     *
+     * @return 关于我内容
+     * @description 本数据直接存在redis中
+     */
+    String getAbout();
 }

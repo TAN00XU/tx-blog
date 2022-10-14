@@ -10,7 +10,7 @@ package com.tan00xu.constant;
 public class RedisPrefixConst {
 
     /**
-     * 验证码过期时间
+     * 验证码过期时间 15分钟
      */
     public static final long CODE_EXPIRE_TIME = 15 * 60;
 
@@ -85,7 +85,7 @@ public class RedisPrefixConst {
     public static final String ABOUT = "about";
 
     /**
-     * 访客
+     * 访客唯一标识
      */
     public static final String UNIQUE_VISITOR = "unique_visitor";
 

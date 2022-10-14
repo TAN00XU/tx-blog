@@ -25,4 +25,6 @@ public class FriendLinkServiceTest {
         List<FriendlyLinkDTO> friendlyLinkDTOS = friendlyLinkService.listFriendLinks();
         friendlyLinkDTOS.forEach(System.out::println);
     }
+
+
 }

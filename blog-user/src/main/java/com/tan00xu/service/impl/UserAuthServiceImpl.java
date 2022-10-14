@@ -18,7 +18,6 @@ import com.tan00xu.exception.BizException;
 import com.tan00xu.service.BlogInfoService;
 import com.tan00xu.service.RedisService;
 import com.tan00xu.service.UserAuthService;
-import com.tan00xu.vo.Result;
 import com.tan00xu.vo.UserVO;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +61,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
     private UserRoleDao userRoleDao;
 
     @Override
-    public Result<?> sendCode(String username) {
+    public void sendCode(String username) {
         // 校验账号是否合法
         if (!checkEmail(username)) {
             throw new BizException("请输入正确邮箱");
@@ -77,16 +76,17 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
                 .build();
 
         /**
+         *  发送对象需要进行序列化
          *  //手动序列化的方式
          *  rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, "", new Message(JSON.toJSONBytes(emailDTO), new MessageProperties()));
          *  //设置对消息进行序列化
          *  rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
+         *  序列化已写入配置中
          */
 
         rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, "", emailDTO);
         // 将验证码存入redis，设置过期时间为15分钟
         redisService.set(USER_CODE_KEY + username, code, CODE_EXPIRE_TIME);
-        return Result.ok();
     }
 
     @Transactional(rollbackFor = Exception.class)

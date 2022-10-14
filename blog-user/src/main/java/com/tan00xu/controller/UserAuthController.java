@@ -38,7 +38,8 @@ public class UserAuthController {
     @Parameter(name = "email", description = "邮箱号", required = true)
     @GetMapping("/code")
     public Result<?> sendCode(@RequestParam(name = "email", required = true) String email) {
-        return userAuthService.sendCode(email);
+        userAuthService.sendCode(email);
+        return Result.ok();
     }
 
     /**
