@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Tag(name = "博客信息")
 @RestController
-@RequestMapping("/web")
 public class BlogInfoController {
     @Autowired
     private BlogInfoService blogInfoService;
@@ -32,7 +30,7 @@ public class BlogInfoController {
      * @return {@link Result<WebsiteConfigVO>} 网站配置
      */
     @Operation(summary = "获取网站配置信息")
-    @GetMapping("/website/config")
+    @GetMapping("/web/website/config")
     public Result<WebsiteConfigVO> getWebsiteConfig() {
         return Result.ok(blogInfoService.getWebsiteConfig());
     }
@@ -43,7 +41,7 @@ public class BlogInfoController {
      * @return {@link Result}
      */
     @Operation(summary = "上传访客信息")
-    @PostMapping("/report")
+    @PostMapping("/web/report")
     public Result<?> report() {
         blogInfoService.report();
         return Result.ok();
@@ -56,7 +54,7 @@ public class BlogInfoController {
      * @return {@link Result<String>} 关于我信息
      */
     @Operation(summary = "查看关于我信息")
-    @GetMapping("/about")
+    @GetMapping("/web/about")
     public Result<String> getAbout() {
         return Result.ok(blogInfoService.getAbout());
     }
