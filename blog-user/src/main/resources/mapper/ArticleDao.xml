@@ -22,8 +22,8 @@
     <!--查询首页文章-->
     <select id="listArticles" resultMap="articleHomeResultMap">
         SELECT a.id,
-        article_cover,
-        article_title,
+               article_cover,
+               article_title,
         <!--最长取出500-->
         SUBSTR(article_content, 1, 500) AS article_content,
         a.create_time,
@@ -31,26 +31,63 @@
         a.is_top,
         a.category_id,
         category_name,
-        t.id AS tag_id,
+        t.id                            AS tag_id,
         t.tag_name
         FROM (SELECT id,
-        article_cover,
-        article_title,
-        article_content,
-        type,
-        is_top,
-        create_time,
-        category_id
-        FROM tb_article
-        WHERE is_delete = 0
-        AND status = 1
-        ORDER BY is_top DESC,
-        id DESC
-        LIMIT #{current} , #{size}) a
-        JOIN tb_category c ON a.category_id = c.id
-        JOIN tb_article_tag atg ON a.id = atg.article_id
-        JOIN tb_tag t ON t.id = atg.tag_id
+                     article_cover,
+                     article_title,
+                     article_content,
+                     type,
+                     is_top,
+                     create_time,
+                     category_id
+              FROM tb_article
+              WHERE is_delete = 0
+                AND status = 1
+              ORDER BY is_top DESC,
+                       id DESC
+              LIMIT #{current} , #{size}) a
+                 JOIN tb_category c ON a.category_id = c.id
+                 JOIN tb_article_tag atg ON a.id = atg.article_id
+                 JOIN tb_tag t ON t.id = atg.tag_id
         ORDER BY a.is_top DESC,
-        a.id DESC
+                 a.id DESC
+    </select>
+
+    <select id="getArticleById" resultType="com.tan00xu.dto.ArticleDTO">
+        SELECT a.id,
+               article_cover,
+               article_title,
+               article_content,
+               a.type,
+               a.original_url,
+               a.create_time,
+               a.update_time,
+               a.category_id,
+               category_name,
+               t.id AS tag_id,
+               t.tag_name
+        FROM tb_article a
+                 JOIN tb_category c ON a.category_id = c.id
+                 JOIN tb_article_tag atg ON a.id = atg.article_id
+                 JOIN tb_tag t ON t.id = atg.tag_id
+        WHERE a.id = #{articleId}
+          AND a.is_delete = 0
+          AND a.status = 1
+    </select>
+
+    <select id="listRecommendArticles" resultType="com.tan00xu.dto.ArticleRecommendDTO">
+        SELECT id,
+               article_title,
+               article_cover,
+               create_time
+        FROM (SELECT DISTINCT article_id
+              FROM (SELECT tag_id FROM tb_article_tag WHERE article_id = #{articleId}) t
+                       JOIN tb_article_tag t1 ON t.tag_id = t1.tag_id
+              WHERE article_id != #{articleId}) t2
+                 JOIN tb_article a ON t2.article_id = a.id
+        WHERE a.is_delete = 0
+        ORDER BY is_top DESC, id DESC
+        LIMIT 6
     </select>
 </mapper>

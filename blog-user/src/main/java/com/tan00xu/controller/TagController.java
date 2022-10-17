@@ -5,6 +5,7 @@ import com.tan00xu.service.TagService;
 import com.tan00xu.vo.PageResult;
 import com.tan00xu.vo.Result;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 饮梦 TAN00XU
  * @date 2022/10/15 11:05:03
  */
+@Tag(name = "标签模块")
 @RestController
 public class TagController {
 

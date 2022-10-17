@@ -46,8 +46,11 @@ public class OpenApiConfig {
                                 .email("2507320149@qq.com"))
                         .version("1.0")
                         .termsOfService("http://doc.xiaominfo.com")
-                        .license(new License().name("Apache 2.0")
-                                .url("http://doc.xiaominfo.com"))
+                        .license(new License()
+                                .name("Apache 2.0")
+                                .url("http://doc.xiaominfo.com")
+                        )
+
                 );
     }
 
