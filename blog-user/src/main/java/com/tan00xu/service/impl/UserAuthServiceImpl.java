@@ -35,10 +35,10 @@ import static com.tan00xu.util.CommonUtils.getRandomCode;
 
 
 /**
- * 用户账号服务
+ * 用户账号服务实现类
  *
- * @author yezhiqiu
- * @date 2021/08/10
+ * @author 饮梦 TAN00XU
+ * @date 2022/10/18 10:17:25
  */
 @Service
 public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> implements UserAuthService {
