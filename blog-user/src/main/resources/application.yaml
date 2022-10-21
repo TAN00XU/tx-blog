@@ -39,7 +39,7 @@ spring:
     default-encoding: UTF-8
   # Redis配置
   redis:
-    host: 47.109.33.195
+    host: 8.130.34.56
     port: 6379
     password: 123123
     database: 0
@@ -48,13 +48,13 @@ spring:
         max-active: 8
         max-idle: 8
         min-idle: 0
-        max-wait: 100ms
+        max-wait: 1000ms
   # rabbitmq配置
   rabbitmq:
-    host: 47.109.33.195
+    host: 8.130.34.56
     port: 5672
-    username: admin
-    password: admin
+    username: root
+    password: 123123
     listener:
       simple:
         retry:

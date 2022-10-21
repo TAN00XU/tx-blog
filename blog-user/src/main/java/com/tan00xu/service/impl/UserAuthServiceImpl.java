@@ -104,13 +104,6 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
                 .build();
         userInfoDao.insert(userInfo);
 
-        // 绑定用户角色
-        UserRole userRole = UserRole.builder()
-                .userId(userInfo.getId())
-                .roleId(RoleEnum.USER.getRoleId())
-                .build();
-        userRoleDao.insert(userRole);
-
         // 新增用户账号
         UserAuth userAuth = UserAuth.builder()
                 .userInfoId(userInfo.getId())
@@ -120,6 +113,13 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
                 .loginType(LoginTypeEnum.EMAIL.getType())
                 .build();
         userAuthDao.insert(userAuth);
+
+        // 绑定用户角色
+        UserRole userRole = UserRole.builder()
+                .userId(userAuth.getId())
+                .roleId(RoleEnum.USER.getRoleId())
+                .build();
+        userRoleDao.insert(userRole);
     }
 
     @Transactional(rollbackFor = Exception.class)

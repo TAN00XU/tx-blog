@@ -8,9 +8,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 
 /**
@@ -50,7 +49,7 @@ public class UserAuthController {
      */
     @Operation(summary = "用户注册")
     @PostMapping("/user/register")
-    public Result<?> register(@Valid @RequestBody UserVO user) {
+    public Result<?> register(@Validated @RequestBody UserVO user) {
         userAuthService.register(user);
         return Result.ok();
     }
@@ -64,7 +63,7 @@ public class UserAuthController {
      */
     @Operation(summary = "修改密码")
     @PutMapping("/user/password")
-    public Result<?> updatePassword(@Valid @RequestBody UserVO user) {
+    public Result<?> updatePassword(@Validated @RequestBody UserVO user) {
         userAuthService.updatePassword(user);
         return Result.ok();
     }

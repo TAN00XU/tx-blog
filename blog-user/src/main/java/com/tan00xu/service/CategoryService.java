@@ -1,9 +1,14 @@
 package com.tan00xu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tan00xu.dto.CategoryBackDTO;
 import com.tan00xu.dto.CategoryDTO;
 import com.tan00xu.entity.Category;
+import com.tan00xu.vo.CategoryVO;
+import com.tan00xu.vo.ConditionVO;
 import com.tan00xu.vo.PageResult;
+
+import java.util.List;
 
 
 /**
@@ -22,4 +27,27 @@ public interface CategoryService extends IService<Category> {
     PageResult<CategoryDTO> listCategories();
 
 
+    /**
+     * 查询分类 后台
+     *
+     * @param conditionVO 条件VO
+     * @return {@link PageResult}<{@link CategoryBackDTO}>
+     */
+    PageResult<CategoryBackDTO> listBackCategories(ConditionVO conditionVO);
+
+
+    /**
+     * 删除分类 后台
+     *
+     * @param categoryIdList 分类id列表
+     */
+    void deleteCategory(List<Integer> categoryIdList);
+
+
+    /**
+     * 添加或修改分类 后台
+     *
+     * @param categoryVO 分类
+     */
+    void saveOrUpdateCategory(CategoryVO categoryVO);
 }

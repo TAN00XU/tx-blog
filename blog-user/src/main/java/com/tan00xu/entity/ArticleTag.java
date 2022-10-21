@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 
 /**
- * 文章标签类
+ * 文章与标签对应类
  *
  * @author 饮梦 TAN00XU
  * @date 2022/09/24 22:04:36

@@ -1,8 +1,13 @@
 package com.tan00xu.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tan00xu.dto.TagBackDTO;
 import com.tan00xu.entity.Tag;
+import com.tan00xu.vo.ConditionVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 
 /**
@@ -14,5 +19,15 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TagDao extends BaseMapper<Tag> {
 
+
+    /**
+     * 查询标签列表 后台
+     *
+     * @param current   页码
+     * @param size      大小
+     * @param condition 条件
+     * @return {@link List}<{@link TagBackDTO}>
+     */
+    List<TagBackDTO> listTagBackDTO(@Param("current") Long current, @Param("size") Long size, @Param("condition") ConditionVO condition);
 
 }

@@ -40,6 +40,16 @@ public class CommonConst {
     public static final String SIZE = "size";
 
     /**
+     * 最小每页条数
+     */
+    public static final Integer MIN_SIZE = 1;
+
+    /**
+     * 最大每页条数
+     */
+    public static final Integer MAX_SIZE = 20;
+
+    /**
      * 博主id
      */
     public static final Integer BLOGGER_ID = 1;
@@ -53,45 +63,37 @@ public class CommonConst {
      * 默认用户昵称
      */
     public static final String DEFAULT_NICKNAME = "用户";
-
-    /**
-     * 浏览文章集合
-     */
-    public static String ARTICLE_SET = "articleSet";
-
-    /**
-     * 前端组件名
-     */
-    public static String COMPONENT = "Layout";
-
     /**
      * 省
      */
     public static final String PROVINCE = "省";
-
     /**
      * 区
      */
     public static final String DISTRICT = "区";
-
     /**
      * 市
      */
     public static final String CITY = "市";
-
     /**
      * 未知的
      */
     public static final String UNKNOWN = "未知";
-
     /**
      * JSON 格式
      */
     public static final String APPLICATION_JSON = "application/json;charset=utf-8";
-
     /**
      * 默认的配置id
      */
     public static final Integer DEFAULT_CONFIG_ID = 1;
+    /**
+     * 浏览文章集合
+     */
+    public static String ARTICLE_SET = "articleSet";
+    /**
+     * 前端组件名
+     */
+    public static String COMPONENT = "Layout";
 
 }

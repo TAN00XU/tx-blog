@@ -35,9 +35,13 @@ public class PagingHandlerInterceptor implements HandlerInterceptor {
         CmdOutputInformationUtils.info("handler.PagingHandlerInterceptor=>\n前端的页码=>" + currentPage);
         //非空？值：orElse(非空？值：new Optional())
         String pageSize = Optional.ofNullable(request.getParameter(SIZE)).orElse(DEFAULT_SIZE);
+        long size = Long.parseLong(pageSize);
+        if (size > MAX_SIZE || size < MIN_SIZE) {
+            size = Long.parseLong(DEFAULT_SIZE);
+        }
         CmdOutputInformationUtils.info("handler.PagingHandlerInterceptor=>\n前端的条数=>" + currentPage);
         if (StringUtils.hasText(currentPage)) {
-            PagingUtils.setCurrentPage(new Page<>(Long.parseLong(currentPage), Long.parseLong(pageSize)));
+            PagingUtils.setCurrentPage(new Page<>(Long.parseLong(currentPage), size));
         }
         return true;
     }

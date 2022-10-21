@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 public class UserAuth {
 
     /**
-     * id
+     * 用户id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;

@@ -17,7 +17,7 @@
                request_method,
                role_label
         FROM tb_resource re
-                 LEFT JOIN tb_role_resource rep on re.id = rep.resource_id
+                 LEFT JOIN tb_role_resource rep on rep.resource_id = re.id
                  LEFT JOIN tb_role r on rep.role_id = r.id
         WHERE parent_id is NOT NULL
           AND is_anonymous = 0
@@ -51,19 +51,19 @@
     </resultMap>
     <select id="listRoles" resultMap="RoleMap">
         SELECT r.id,
-               role_name,
-               role_label,
-               r.create_time,
-               r.is_disable,
-               rr.resource_id,
-               rm.menu_id
+        role_name,
+        role_label,
+        r.create_time,
+        r.is_disable,
+        rr.resource_id,
+        rm.menu_id
         FROM
         (
         SELECT id,
-               role_name,
-               role_label,
-               create_time,
-               is_disable
+        role_name,
+        role_label,
+        create_time,
+        is_disable
         FROM tb_role
         <where>
             <if test="conditionVO.keywords != null">
@@ -72,8 +72,8 @@
         </where>
         LIMIT #{current}, #{size}
         ) r
-            LEFT JOIN tb_role_resource rr ON r.id = rr.role_id
-            LEFT JOIN tb_role_menu rm on r.id = rm.role_id
+        LEFT JOIN tb_role_resource rr ON r.id = rr.role_id
+        LEFT JOIN tb_role_menu rm on r.id = rm.role_id
         ORDER BY r.id
     </select>
 </mapper>

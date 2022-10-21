@@ -40,7 +40,10 @@ public class GlobalExceptionAdviceHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result<?> errorHandler(MethodArgumentNotValidException e) {
-        return Result.fail(VALID_ERROR.getCode(), Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
+        return Result.fail(
+                VALID_ERROR.getCode(),
+                Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage()
+        );
     }
 
     /**

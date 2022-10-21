@@ -2,6 +2,7 @@ package com.tan00xu.handler;
 
 import com.tan00xu.dao.RoleDao;
 import com.tan00xu.dto.ResourceRoleDTO;
+import com.tan00xu.util.CmdOutputInformationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -60,9 +61,12 @@ public class FilterInvocationSecurityMetadataSourceImpl implements FilterInvocat
         String method = fi.getRequest().getMethod();
         // 获取用户请求Url
         String url = fi.getRequest().getRequestURI();
+        CmdOutputInformationUtils.info("handler/FilterInvocationSecurityMetadataSourceImpl");
+        CmdOutputInformationUtils.info("method=>" + method + "\nurl=>" + url);
         AntPathMatcher antPathMatcher = new AntPathMatcher();
         // 获取接口角色信息，若为匿名接口则放行，若无对应角色则禁止
         for (ResourceRoleDTO resourceRoleDTO : resourceRoleList) {
+            CmdOutputInformationUtils.debug(resourceRoleDTO);
             //路径和请求方式是否匹配
             if (antPathMatcher.match(resourceRoleDTO.getUrl(), url) && resourceRoleDTO.getRequestMethod().equals(method)) {
                 List<String> roleList = resourceRoleDTO.getRoleLabelList();

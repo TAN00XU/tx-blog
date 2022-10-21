@@ -25,22 +25,22 @@ import java.time.LocalDateTime;
 public class UserInfo {
 
     /**
-     * 用户ID
+     * 用户信息ID
      */
-    @Schema(name = "id", title = "id", required = true, type = "Integer")
+    @Schema(name = "id", description = "用户信息ID", required = true, type = "Integer")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
      * 邮箱号
      */
-    @Schema(name = "email", title = "邮箱", required = true, type = "String")
+    @Schema(name = "email", description = "邮箱", required = true, type = "String")
     private String email;
 
     /**
      * 用户昵称
      */
-    @Schema(name = "nickname", title = "昵称", required = true, type = "String")
+    @Schema(name = "nickname", description = "昵称", required = true, type = "String")
     private String nickname;
 
     /**

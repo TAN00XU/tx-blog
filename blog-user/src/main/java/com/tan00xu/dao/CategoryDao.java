@@ -1,9 +1,12 @@
 package com.tan00xu.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tan00xu.dto.CategoryBackDTO;
 import com.tan00xu.dto.CategoryDTO;
 import com.tan00xu.entity.Category;
+import com.tan00xu.vo.ConditionVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,5 +27,15 @@ public interface CategoryDao extends BaseMapper<Category> {
      */
     List<CategoryDTO> listCategoryDTO();
 
+
+    /**
+     * 后台查询分类列表
+     *
+     * @param current   页码
+     * @param size      大小
+     * @param condition 条件
+     * @return {@link List}<{@link CategoryBackDTO}>
+     */
+    List<CategoryBackDTO> listCategoryBackDTO(@Param("current") Long current, @Param("size") Long size, @Param("condition") ConditionVO condition);
 
 }
