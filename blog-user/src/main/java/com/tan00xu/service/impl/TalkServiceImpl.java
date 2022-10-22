@@ -25,11 +25,12 @@ import java.util.stream.Collectors;
 import static com.tan00xu.constant.RedisPrefixConst.TALK_LIKE_COUNT;
 import static com.tan00xu.enums.TalkStatusEnum.PUBLIC;
 
+
 /**
- * 说说服务
+ * 说说服务实现类
  *
- * @author yezhiqiu
- * @date 2022/01/23
+ * @author 饮梦 TAN00XU
+ * @date 2022/10/22 18:16:24
  */
 @Service
 public class TalkServiceImpl extends ServiceImpl<TalkDao, Talk> implements TalkService {
@@ -58,10 +59,10 @@ public class TalkServiceImpl extends ServiceImpl<TalkDao, Talk> implements TalkS
     @Override
     public PageResult<TalkDTO> listTalks() {
         // 查询说说总量
-        Integer count = Math.toIntExact(talkDao.selectCount(
+        Long count = talkDao.selectCount(
                 new LambdaQueryWrapper<Talk>()
                         .eq(Talk::getStatus, PUBLIC.getStatus())
-        ));
+        );
         if (count == 0) {
             return new PageResult<>();
         }
@@ -88,7 +89,7 @@ public class TalkServiceImpl extends ServiceImpl<TalkDao, Talk> implements TalkS
                         item.setImgList(CommonUtils.castList(JSON.parseObject(item.getImages(), List.class), String.class));
                     }
                 });
-        return new PageResult<>(talkDTOList, count);
+        return new PageResult<>(talkDTOList, Math.toIntExact(count));
     }
 
 }

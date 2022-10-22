@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @author 饮梦 TAN00XU
@@ -26,42 +26,28 @@ public class test {
 
     @Autowired
     RedisService redisService;
-
-    @Test
-    public void test() {
-        // 统计游客地域分布
-        String ipSource = IpUtils.getIpSource("220.182.8.7");
-        System.out.println(ipSource);
-
-//        if (StringUtils.isNotBlank(ipSource)) {
-//            String regex = "[省|区|市][\u4e00-\u9fa5]*";
-//            ipSource.replaceAll("")
-//            ipSource = ipSource.substring(0, 2)
-//                    .replaceAll(PROVINCE, "")
-//                    .replaceAll(CITY, "");
-//            System.out.println(ipSource);
-//            redisService.hIncr(VISITOR_AREA, ipSource, 1L);
-//        }
-    }
+    @Autowired
+    ArticleServiceImpl articleService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    RoleDao roleDao;
 
     public static void main(String[] args) {
-//        String regex = "^[省|区|市]$[\u4e00-\u9fa5]*";
-//
-        String name = "西藏自治区日喀则市 电信";
-        String name1 = "四川省广安市岳池县 电信";
-        String name2 = "北京市 电信";
-//
-//        String s = name1.replaceAll(regex, "");
-//        System.out.println(s);
-//        Pattern compile = Pattern.compile(regex);
-//        Matcher matcher = compile.matcher(name);
-//        int i = name1.indexOf("市");
-//        String substring = name1.substring(0, i + 1);
-//        System.out.println(substring);
-        System.out.println(getProvince(name));
-        System.out.println(getProvince(name1));
-        System.out.println(getProvince(name2));
-        System.out.println(getProvince("测试"));
+        Map<String, String> map = new HashMap<>(); //定义Map集合对象
+        map.put("apple", "新鲜的苹果"); //向集合中添加对象
+        map.put("computer", "配置优良的计算机");
+        map.put("test", "测试");
+
+        Collection<String> values = map.values();
+        CmdOutputInformationUtils.info(values);
+        values.forEach(System.out::println);
+
+        List<String> list = new ArrayList<>();
+        list.addAll(values);
+        values.forEach(list::add);
+
+        System.out.println(list);
 
     }
 
@@ -84,25 +70,33 @@ public class test {
         return provinceName;
     }
 
-    @Autowired
-    ArticleServiceImpl articleService;
+    @Test
+    public void test() {
+        // 统计游客地域分布
+        String ipSource = IpUtils.getIpSource("220.182.8.7");
+        System.out.println(ipSource);
+
+//        if (StringUtils.isNotBlank(ipSource)) {
+//            String regex = "[省|区|市][\u4e00-\u9fa5]*";
+//            ipSource.replaceAll("")
+//            ipSource = ipSource.substring(0, 2)
+//                    .replaceAll(PROVINCE, "")
+//                    .replaceAll(CITY, "");
+//            System.out.println(ipSource);
+//            redisService.hIncr(VISITOR_AREA, ipSource, 1L);
+//        }
+    }
 
     @Test
     public void testArticleService() {
         articleService.listArticles();
     }
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
     @Test
     public void testBCryptPasswordEncoder() {
         String encode = passwordEncoder.encode("123123");
         System.out.println(encode);
     }
-
-    @Autowired
-    RoleDao roleDao;
 
     @Test
     public void testRoleDao() {

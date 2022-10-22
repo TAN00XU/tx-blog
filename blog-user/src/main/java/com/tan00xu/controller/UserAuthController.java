@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.*;
  * @author 饮梦 TAN00XU
  * @date 2022/09/30 14:30:56
  */
+@Tag(name = "用户账户控制")
 @RestController
 @RequestMapping("/web")
-@Tag(name = "用户账户控制")
 public class UserAuthController {
     @Autowired
     private UserAuthService userAuthService;
@@ -36,7 +36,7 @@ public class UserAuthController {
     @Operation(summary = "发送邮箱验证码")
     @Parameter(name = "email", description = "邮箱号", required = true)
     @GetMapping("/code")
-    public Result<?> sendCode(@RequestParam(name = "email", required = true) String email) {
+    public Result<?> sendCode(@RequestParam(name = "email") String email) {
         userAuthService.sendCode(email);
         return Result.ok();
     }

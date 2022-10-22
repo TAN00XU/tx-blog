@@ -1,30 +1,29 @@
-package com.tan00xu.entity;
+package com.tan00xu.dto;
 
-import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 /**
- * 资源类
+ * 资源DTO类
  *
  * @author 饮梦 TAN00XU
- * @date 2022/09/24 22:07:55
+ * @date 2022/10/21 19:09:34
  */
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@TableName("tb_resource")
-public class Resource {
+@AllArgsConstructor
+public class ResourceDTO {
+
     /**
      * 权限id
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -43,9 +42,9 @@ public class Resource {
     private String requestMethod;
 
     /**
-     * 父权限id
+     * 是否禁用
      */
-    private Integer parentId;
+    private Integer isDisable;
 
     /**
      * 是否匿名访问
@@ -55,13 +54,12 @@ public class Resource {
     /**
      * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
-     * 修改时间
+     * 权限列表
      */
-    @TableField(fill = FieldFill.UPDATE)
-    private LocalDateTime updateTime;
+    private List<ResourceDTO> children;
+
 
 }
