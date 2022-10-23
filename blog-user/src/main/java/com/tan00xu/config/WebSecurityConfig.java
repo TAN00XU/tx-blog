@@ -77,12 +77,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // 配置登录注销路径
         http.formLogin()
-                .loginProcessingUrl("/web/user/login")
+                .loginProcessingUrl("/login")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailHandler)
                 .and()
                 .logout()
-                .logoutUrl("/web/user/logout")
+                .logoutUrl("/logout")
                 .logoutSuccessHandler(logoutSuccessHandler);
         // 配置路由权限信息
         http.authorizeRequests()

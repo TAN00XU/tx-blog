@@ -35,7 +35,7 @@ public class ConditionVO {
     private Long size;
 
     /**
-     * 搜索内容
+     * 搜索内容 关键字
      */
     @Schema(name = "keywords", description = "搜索内容", type = "String")
     private String keywords;

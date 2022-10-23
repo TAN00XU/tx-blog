@@ -7,7 +7,7 @@ import com.tan00xu.dto.UserMenuDTO;
 import com.tan00xu.entity.Menu;
 import com.tan00xu.service.MenuService;
 import com.tan00xu.util.BeanCopyUtils;
-import com.tan00xu.util.CmdOutputInformationUtils;
+import com.tan00xu.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,16 +31,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
 
     @Override
     public List<UserMenuDTO> listUserMenus() {
-        CmdOutputInformationUtils.info("service.impl.MenuServiceImpl.listUserMenus固定了用户菜单查询");
         // 查询用户菜单信息
-//        List<Menu> menuList = menuDao.listMenusByUserInfoId(UserUtils.getLoginUser().getId());
-        List<Menu> menuList = menuDao.listMenusByUserInfoId(1);
+        List<Menu> menuList = menuDao.listMenusByUserInfoId(UserUtils.getLoginUser().getId());
         // 获取目录列表
         List<Menu> catalogList = listCatalog(menuList);
-
         // 获取目录下的子菜单
         Map<Integer, List<Menu>> childrenMap = getMenuMap(menuList);
-
         // 转换前端菜单格式
         return convertUserMenuList(catalogList, childrenMap);
     }

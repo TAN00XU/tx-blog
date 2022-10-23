@@ -29,8 +29,10 @@ import static com.tan00xu.constant.RedisPrefixConst.*;
 import static com.tan00xu.enums.TalkStatusEnum.PUBLIC;
 
 /**
+ * 文章服务实现类
+ *
  * @author 饮梦 TAN00XU
- * @date 2022/10/11 14:32
+ * @date 2022/10/23 13:11:05
  */
 @Service
 public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> implements ArticleService {

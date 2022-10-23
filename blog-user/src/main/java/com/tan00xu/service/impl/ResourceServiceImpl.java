@@ -13,7 +13,6 @@ import com.tan00xu.exception.BizException;
 import com.tan00xu.handler.FilterInvocationSecurityMetadataSourceImpl;
 import com.tan00xu.service.ResourceService;
 import com.tan00xu.util.BeanCopyUtils;
-import com.tan00xu.util.CmdOutputInformationUtils;
 import com.tan00xu.vo.ConditionVO;
 import com.tan00xu.vo.ResourceVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,6 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceDao, Resource> impl
 
     @Override
     public void saveOrUpdateResource(ResourceVO resourceVO) {
-        CmdOutputInformationUtils.error(resourceVO);
         // 更新资源信息
         Resource resource = BeanCopyUtils.copyObject(resourceVO, Resource.class);
         this.saveOrUpdate(resource);
