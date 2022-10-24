@@ -1,7 +1,6 @@
 package com.tan00xu.handler;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tan00xu.util.CmdOutputInformationUtils;
 import com.tan00xu.util.PagingUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -32,14 +31,14 @@ public class PagingHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String currentPage = request.getParameter(CURRENT);
-        CmdOutputInformationUtils.info("handler.PagingHandlerInterceptor=>\n前端的页码=>" + currentPage);
+//        CmdOutputInformationUtils.info("handler.PagingHandlerInterceptor=>\n前端的页码=>" + currentPage);
         //非空？值：orElse(非空？值：new Optional())
         String pageSize = Optional.ofNullable(request.getParameter(SIZE)).orElse(DEFAULT_SIZE);
         long size = Long.parseLong(pageSize);
         if (size > MAX_SIZE || size < MIN_SIZE) {
             size = Long.parseLong(DEFAULT_SIZE);
         }
-        CmdOutputInformationUtils.info("handler.PagingHandlerInterceptor=>\n前端的条数=>" + currentPage);
+//        CmdOutputInformationUtils.info("handler.PagingHandlerInterceptor=>\n前端的条数=>" + currentPage);
         if (StringUtils.hasText(currentPage)) {
             PagingUtils.setCurrentPage(new Page<>(Long.parseLong(currentPage), size));
         }

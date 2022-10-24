@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 
 /**
- * 角色菜单类
+ * 角色与菜单对应表类
  *
  * @author 饮梦 TAN00XU
  * @date 2022/09/24 22:08:10

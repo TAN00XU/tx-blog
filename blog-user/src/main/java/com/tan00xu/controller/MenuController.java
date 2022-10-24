@@ -1,5 +1,6 @@
 package com.tan00xu.controller;
 
+import com.tan00xu.dto.LabelOptionDTO;
 import com.tan00xu.dto.UserMenuDTO;
 import com.tan00xu.service.MenuService;
 import com.tan00xu.util.CmdOutputInformationUtils;
@@ -28,7 +29,7 @@ public class MenuController {
 
 
     /**
-     * 查看当前用户菜单
+     * 查看当前用户菜单 后台
      *
      * @return {@link Result}<{@link List}<{@link UserMenuDTO}>>
      */
@@ -38,6 +39,18 @@ public class MenuController {
         CmdOutputInformationUtils.info("listUserMenus收到请求");
         System.out.println(SecurityContextHolder.getContext().getAuthentication());
         return Result.ok(menuService.listUserMenus());
+    }
+
+
+    /**
+     * 查看角色的菜单选项列表 后台
+     *
+     * @return 角色的菜单选项列表 {@link Result}<{@link List}<{@link LabelOptionDTO}>>
+     */
+    @Operation(summary = "查看角色的菜单选项列表")
+    @GetMapping("/admin/role/menus")
+    public Result<List<LabelOptionDTO>> listRoleMenuOptions() {
+        return Result.ok(menuService.listRoleMenuOptions());
     }
 
 }

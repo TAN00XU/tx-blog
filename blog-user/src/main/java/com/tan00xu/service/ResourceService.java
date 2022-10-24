@@ -1,6 +1,7 @@
 package com.tan00xu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tan00xu.dto.LabelOptionDTO;
 import com.tan00xu.dto.ResourceDTO;
 import com.tan00xu.entity.Resource;
 import com.tan00xu.vo.ConditionVO;
@@ -40,5 +41,12 @@ public interface ResourceService extends IService<Resource> {
      */
     List<ResourceDTO> listResources(ConditionVO conditionVO);
 
+
+    /**
+     * 查看角色的资源选项列表 后台
+     *
+     * @return 角色资源选项列表 {@link List}<{@link LabelOptionDTO}>
+     */
+    List<LabelOptionDTO> listRoleResourceOption();
 
 }

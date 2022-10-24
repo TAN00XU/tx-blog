@@ -1,5 +1,6 @@
 package com.tan00xu.controller;
 
+import com.tan00xu.dto.LabelOptionDTO;
 import com.tan00xu.dto.ResourceDTO;
 import com.tan00xu.service.ResourceService;
 import com.tan00xu.vo.ConditionVO;
@@ -62,5 +63,17 @@ public class ResourceController {
     public Result<?> deleteResource(@PathVariable("resourceId") Integer resourceId) {
         resourceService.deleteResource(resourceId);
         return Result.ok();
+    }
+
+
+    /**
+     * 查看角色的资源选项列表 后台
+     *
+     * @return 角色资源选项列表 {@link Result}<{@link List}<{@link LabelOptionDTO}>>
+     */
+    @Operation(summary = "查看角色的资源选项列表")
+    @GetMapping("/admin/role/resources")
+    public Result<List<LabelOptionDTO>> listRoleResourceOption() {
+        return Result.ok(resourceService.listRoleResourceOption());
     }
 }

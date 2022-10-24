@@ -1,8 +1,10 @@
 package com.tan00xu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tan00xu.dao.MenuDao;
+import com.tan00xu.dto.LabelOptionDTO;
 import com.tan00xu.dto.UserMenuDTO;
 import com.tan00xu.entity.Menu;
 import com.tan00xu.service.MenuService;
@@ -39,6 +41,39 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
         Map<Integer, List<Menu>> childrenMap = getMenuMap(menuList);
         // 转换前端菜单格式
         return convertUserMenuList(catalogList, childrenMap);
+    }
+
+    @Override
+    public List<LabelOptionDTO> listRoleMenuOptions() {
+        // 查询菜单数据
+        List<Menu> menuList = menuDao.selectList(
+                new LambdaQueryWrapper<Menu>()
+                        .select(Menu::getId, Menu::getName, Menu::getParentId, Menu::getOrderNum));
+        // 获取目录列表
+        List<Menu> catalogList = listCatalog(menuList);
+        // 获取目录下的子菜单
+        Map<Integer, List<Menu>> childrenMap = getMenuMap(menuList);
+        // 组装目录菜单数据
+        return catalogList.stream().map(
+                item -> {
+                    // 获取目录下的菜单排序
+                    List<LabelOptionDTO> childrenList = new ArrayList<>();
+                    List<Menu> children = childrenMap.get(item.getId());
+                    if (CollectionUtils.isNotEmpty(children)) {
+                        childrenList = children.stream()
+                                .sorted(Comparator.comparing(Menu::getOrderNum))
+                                .map(menu -> LabelOptionDTO.builder()
+                                        .id(menu.getId())
+                                        .label(menu.getName())
+                                        .build())
+                                .collect(Collectors.toList());
+                    }
+                    return LabelOptionDTO.builder()
+                            .id(item.getId())
+                            .label(item.getName())
+                            .children(childrenList)
+                            .build();
+                }).collect(Collectors.toList());
     }
 
     /**

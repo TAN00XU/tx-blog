@@ -5,6 +5,9 @@ import com.tan00xu.dto.RoleDTO;
 import com.tan00xu.entity.Role;
 import com.tan00xu.vo.ConditionVO;
 import com.tan00xu.vo.PageResult;
+import com.tan00xu.vo.RoleVO;
+
+import java.util.List;
 
 
 /**
@@ -24,5 +27,20 @@ public interface RoleService extends IService<Role> {
      */
     PageResult<RoleDTO> listRoles(ConditionVO conditionVO);
 
+
+    /**
+     * 保存或更新角色 后台
+     *
+     * @param roleVO 角色
+     */
+    void saveOrUpdateRole(RoleVO roleVO);
+
+
+    /**
+     * 删除角色 后台
+     *
+     * @param roleIdList 角色id列表
+     */
+    void deleteRoles(List<Integer> roleIdList);
 
 }
