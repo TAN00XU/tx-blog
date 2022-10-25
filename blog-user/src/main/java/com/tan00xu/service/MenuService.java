@@ -2,8 +2,10 @@ package com.tan00xu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tan00xu.dto.LabelOptionDTO;
+import com.tan00xu.dto.MenuDTO;
 import com.tan00xu.dto.UserMenuDTO;
 import com.tan00xu.entity.Menu;
+import com.tan00xu.vo.ConditionVO;
 
 import java.util.List;
 
@@ -16,6 +18,14 @@ import java.util.List;
  */
 public interface MenuService extends IService<Menu> {
 
+
+    /**
+     * 查看菜单列表 后台
+     *
+     * @param conditionVO 条件VO
+     * @return 菜单列表 {@link List}<{@link MenuDTO}>
+     */
+    List<MenuDTO> listMenus(ConditionVO conditionVO);
 
     /**
      * 查看用户菜单 后台
@@ -31,5 +41,6 @@ public interface MenuService extends IService<Menu> {
      * @return 菜单选项列表 {@link List}<{@link LabelOptionDTO}>
      */
     List<LabelOptionDTO> listRoleMenuOptions();
+
 
 }

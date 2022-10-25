@@ -2,14 +2,17 @@ package com.tan00xu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tan00xu.dao.MenuDao;
 import com.tan00xu.dto.LabelOptionDTO;
+import com.tan00xu.dto.MenuDTO;
 import com.tan00xu.dto.UserMenuDTO;
 import com.tan00xu.entity.Menu;
 import com.tan00xu.service.MenuService;
 import com.tan00xu.util.BeanCopyUtils;
 import com.tan00xu.util.UserUtils;
+import com.tan00xu.vo.ConditionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +33,45 @@ import static com.tan00xu.constant.CommonConst.TRUE;
 public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuService {
     @Autowired
     private MenuDao menuDao;
+
+    @Override
+    public List<MenuDTO> listMenus(ConditionVO conditionVO) {
+        // 查询菜单数据
+        List<Menu> menuList = menuDao.selectList(
+                new LambdaQueryWrapper<Menu>()
+                        .like(StringUtils.isNotBlank(conditionVO.getKeywords()), Menu::getName, conditionVO.getKeywords()));
+        // 获取目录列表
+        List<Menu> catalogList = listCatalog(menuList);
+        // 获取目录下的子菜单
+        Map<Integer, List<Menu>> childrenMap = getMenuMap(menuList);
+        // 组装目录菜单数据
+        List<MenuDTO> menuDTOList = catalogList.stream()
+                .map(item -> {
+                            MenuDTO menuDTO = BeanCopyUtils.copyObject(item, MenuDTO.class);
+                            // 获取目录下的菜单排序
+                            List<MenuDTO> list = BeanCopyUtils.copyList(childrenMap.get(item.getId()), MenuDTO.class)
+                                    .stream()
+                                    .sorted(Comparator.comparing(MenuDTO::getOrderNum))
+                                    .collect(Collectors.toList());
+                            menuDTO.setChildren(list);
+                            // 移除已添加进目录的
+                            childrenMap.remove(item.getId());
+                            return menuDTO;
+                        }
+                ).sorted(Comparator.comparing(MenuDTO::getOrderNum))
+                .collect(Collectors.toList());
+        // 若还有菜单未取出则拼接
+        if (CollectionUtils.isNotEmpty(childrenMap)) {
+            List<Menu> childrenList = new ArrayList<>();
+            childrenMap.values().forEach(childrenList::addAll);
+            List<MenuDTO> childrenDTOList = childrenList.stream()
+                    .map(item -> BeanCopyUtils.copyObject(item, MenuDTO.class))
+                    .sorted(Comparator.comparing(MenuDTO::getOrderNum))
+                    .collect(Collectors.toList());
+            menuDTOList.addAll(childrenDTOList);
+        }
+        return menuDTOList;
+    }
 
     @Override
     public List<UserMenuDTO> listUserMenus() {

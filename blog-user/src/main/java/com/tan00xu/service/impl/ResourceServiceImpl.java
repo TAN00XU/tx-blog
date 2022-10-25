@@ -102,7 +102,6 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceDao, Resource> impl
             values.forEach(childrenList::addAll);
             // List<Resource>
 //            childrenMap.values().forEach(childrenList::addAll);
-
             List<ResourceDTO> childrenDTOList = childrenList.stream()
                     .map(item -> BeanCopyUtils.copyObject(item, ResourceDTO.class))
                     .collect(Collectors.toList());

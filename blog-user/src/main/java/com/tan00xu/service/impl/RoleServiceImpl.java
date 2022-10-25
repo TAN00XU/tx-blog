@@ -93,9 +93,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
                 new LambdaQueryWrapper<Role>()
                         .select(Role::getId)
                         .eq(Role::getRoleName, roleVO.getRoleName())
+                        .or()
+                        .eq(Role::getRoleLabel, roleVO.getRoleLabel())
         );
         if (Objects.nonNull(existRole) && !existRole.getId().equals(roleVO.getId())) {
-            throw new BizException("角色名已存在");
+            throw new BizException("角色名或标签名已存在");
         }
         // 保存或更新角色信息
         Role role = Role.builder()
