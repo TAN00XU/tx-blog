@@ -12,14 +12,14 @@ import static com.tan00xu.enums.StatusCodeEnum.SYSTEM_ERROR;
 import static com.tan00xu.enums.StatusCodeEnum.VALID_ERROR;
 
 /**
- * 全局异常通知处理类
+ * 全局异常处理类
  *
  * @author 饮梦 TAN00XU
  * @date 2022/10/10 23:02:29
  * SpringMVC会在处理请求之前，把它作为全局异常处理器来处理
  */
 @RestControllerAdvice
-public class GlobalExceptionAdviceHandler {
+public class GlobalExceptionHandler {
 
     /**
      * 处理业务异常
@@ -52,7 +52,7 @@ public class GlobalExceptionAdviceHandler {
      * @param e 异常
      * @return 接口异常信息
      */
-    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler(Exception.class)
     public Result<?> errorHandler(Exception e) {
         e.printStackTrace();
         return Result.fail(SYSTEM_ERROR.getCode(), SYSTEM_ERROR.getDesc());

@@ -6,6 +6,7 @@ import com.tan00xu.dto.MenuDTO;
 import com.tan00xu.dto.UserMenuDTO;
 import com.tan00xu.entity.Menu;
 import com.tan00xu.vo.ConditionVO;
+import com.tan00xu.vo.MenuVO;
 
 import java.util.List;
 
@@ -28,6 +29,20 @@ public interface MenuService extends IService<Menu> {
     List<MenuDTO> listMenus(ConditionVO conditionVO);
 
     /**
+     * 新增或修改菜单 后台
+     *
+     * @param menuVO 菜单信息
+     */
+    void saveOrUpdateMenu(MenuVO menuVO);
+
+    /**
+     * 删除菜单 后台
+     *
+     * @param menuId 菜单id
+     */
+    void deleteMenu(Integer menuId);
+
+    /**
      * 查看用户菜单 后台
      *
      * @return 用户菜单列表 {@link List}<{@link UserMenuDTO}>
@@ -41,6 +56,5 @@ public interface MenuService extends IService<Menu> {
      * @return 菜单选项列表 {@link List}<{@link LabelOptionDTO}>
      */
     List<LabelOptionDTO> listRoleMenuOptions();
-
 
 }

@@ -145,11 +145,17 @@
                 <version>${sensitive-word.version}</version>
             </dependency>
 
-
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>5.8.5</version>
+            </dependency>
+
+            <!--Apache开源组织提供的用于摘要运算、编码解码的包-->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.15</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

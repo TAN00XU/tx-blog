@@ -25,8 +25,10 @@ import static com.tan00xu.constant.CommonConst.TRUE;
 import static com.tan00xu.constant.RedisPrefixConst.COMMENT_LIKE_COUNT;
 
 /**
+ * 评论服务实现类
+ *
  * @author 饮梦 TAN00XU
- * @date 2022/10/17 22:01
+ * @date 2022/10/25 19:39:25
  */
 @Service
 public class CommentServiceImpl extends ServiceImpl<CommentDao, Comment> implements CommentService {

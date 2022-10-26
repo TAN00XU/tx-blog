@@ -48,6 +48,16 @@ public class TagServiceImpl extends ServiceImpl<TagDao, Tag> implements TagServi
     }
 
     @Override
+    public List<TagDTO> listTagsBySearch(ConditionVO condition) {
+        // 搜索标签
+        List<Tag> tagList = tagDao.selectList(
+                new LambdaQueryWrapper<Tag>()
+                        .like(StringUtils.isNotBlank(condition.getKeywords()), Tag::getTagName, condition.getKeywords())
+                        .orderByDesc(Tag::getId));
+        return BeanCopyUtils.copyList(tagList, TagDTO.class);
+    }
+
+    @Override
     public PageResult<TagBackDTO> listTagBackDTO(ConditionVO condition) {
         // 查询标签数量
         Long count = tagDao.selectCount(

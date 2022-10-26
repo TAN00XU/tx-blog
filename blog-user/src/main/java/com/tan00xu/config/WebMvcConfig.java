@@ -2,9 +2,11 @@ package com.tan00xu.config;
 
 
 import com.tan00xu.handler.PagingHandlerInterceptor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
@@ -17,6 +19,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
+
+    @Value("${upload.local.path}")
+    public String fileRealPath;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -43,4 +48,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //        registry.addInterceptor(getWebSecurityHandler());
     }
 
+    /**
+     * 设置上传文件映射
+     *
+     * @param registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+                //映射路径
+                .addResourceHandler("/articles/**")
+                //上传文件路径
+                .addResourceLocations("file:" + fileRealPath + "articles\\");
+    }
 }

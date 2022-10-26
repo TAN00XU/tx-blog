@@ -7,10 +7,12 @@ import com.tan00xu.dao.ArticleDao;
 import com.tan00xu.dao.CategoryDao;
 import com.tan00xu.dto.CategoryBackDTO;
 import com.tan00xu.dto.CategoryDTO;
+import com.tan00xu.dto.CategoryOptionDTO;
 import com.tan00xu.entity.Article;
 import com.tan00xu.entity.Category;
 import com.tan00xu.exception.BizException;
 import com.tan00xu.service.CategoryService;
+import com.tan00xu.util.BeanCopyUtils;
 import com.tan00xu.util.CmdOutputInformationUtils;
 import com.tan00xu.util.PagingUtils;
 import com.tan00xu.vo.CategoryVO;
@@ -40,6 +42,16 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> impl
     @Override
     public PageResult<CategoryDTO> listCategories() {
         return new PageResult<>(categoryDao.listCategoryDTO(), Math.toIntExact(categoryDao.selectCount(null)));
+    }
+
+    @Override
+    public List<CategoryOptionDTO> listCategoriesBySearch(ConditionVO condition) {
+        // 搜索分类
+        List<Category> categoryList = categoryDao.selectList(
+                new LambdaQueryWrapper<Category>()
+                        .like(StringUtils.isNotBlank(condition.getKeywords()), Category::getCategoryName, condition.getKeywords())
+                        .orderByDesc(Category::getId));
+        return BeanCopyUtils.copyList(categoryList, CategoryOptionDTO.class);
     }
 
     @Override

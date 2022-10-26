@@ -4,17 +4,18 @@ import com.tan00xu.dto.RoleDTO;
 import com.tan00xu.service.RedisService;
 import com.tan00xu.service.impl.ArticleServiceImpl;
 import com.tan00xu.util.CmdOutputInformationUtils;
-import com.tan00xu.util.IpUtils;
 import com.tan00xu.vo.ConditionVO;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.*;
+import java.io.File;
+import java.util.List;
 
 /**
  * @author 饮梦 TAN00XU
@@ -33,23 +34,6 @@ public class test {
     @Autowired
     RoleDao roleDao;
 
-    public static void main(String[] args) {
-        Map<String, String> map = new HashMap<>(); //定义Map集合对象
-        map.put("apple", "新鲜的苹果"); //向集合中添加对象
-        map.put("computer", "配置优良的计算机");
-        map.put("test", "测试");
-
-        Collection<String> values = map.values();
-        CmdOutputInformationUtils.info(values);
-        values.forEach(System.out::println);
-
-        List<String> list = new ArrayList<>();
-        list.addAll(values);
-        values.forEach(list::add);
-
-        System.out.println(list);
-
-    }
 
     public static String getProvince(String name) {
         String provinceName = "";
@@ -70,21 +54,17 @@ public class test {
         return provinceName;
     }
 
+
     @Test
     public void test() {
-        // 统计游客地域分布
-        String ipSource = IpUtils.getIpSource("220.182.8.7");
-        System.out.println(ipSource);
-
-//        if (StringUtils.isNotBlank(ipSource)) {
-//            String regex = "[省|区|市][\u4e00-\u9fa5]*";
-//            ipSource.replaceAll("")
-//            ipSource = ipSource.substring(0, 2)
-//                    .replaceAll(PROVINCE, "")
-//                    .replaceAll(CITY, "");
-//            System.out.println(ipSource);
-//            redisService.hIncr(VISITOR_AREA, ipSource, 1L);
-//        }
+        ApplicationHome home = new ApplicationHome(getClass());
+        File jarFile = home.getSource();
+        String path = "无";
+        //项目部署的目录
+        if (jarFile != null) {
+            path = jarFile.getParentFile().getPath();
+        }
+        CmdOutputInformationUtils.error(path);
     }
 
     @Test

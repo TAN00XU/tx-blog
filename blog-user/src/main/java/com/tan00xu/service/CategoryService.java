@@ -3,6 +3,7 @@ package com.tan00xu.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tan00xu.dto.CategoryBackDTO;
 import com.tan00xu.dto.CategoryDTO;
+import com.tan00xu.dto.CategoryOptionDTO;
 import com.tan00xu.entity.Category;
 import com.tan00xu.vo.CategoryVO;
 import com.tan00xu.vo.ConditionVO;
@@ -28,7 +29,16 @@ public interface CategoryService extends IService<Category> {
 
 
     /**
-     * 查询分类 后台
+     * 搜索文章分类 后台
+     *
+     * @param condition 条件
+     * @return {@link List}<{@link CategoryOptionDTO}>
+     */
+    List<CategoryOptionDTO> listCategoriesBySearch(ConditionVO condition);
+
+
+    /**
+     * 查看分类列表（包括搜索） 后台
      *
      * @param conditionVO 条件VO
      * @return {@link PageResult}<{@link CategoryBackDTO}>

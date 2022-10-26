@@ -2,6 +2,7 @@ package com.tan00xu.controller;
 
 import com.tan00xu.dto.CategoryBackDTO;
 import com.tan00xu.dto.CategoryDTO;
+import com.tan00xu.dto.CategoryOptionDTO;
 import com.tan00xu.service.CategoryService;
 import com.tan00xu.vo.CategoryVO;
 import com.tan00xu.vo.ConditionVO;
@@ -39,6 +40,18 @@ public class CategoryController {
         return Result.ok(categoryService.listCategories());
     }
 
+
+    /**
+     * 搜索文章分类 后台
+     *
+     * @param condition 条件
+     * @return {@link Result}<{@link List}<{@link CategoryOptionDTO}>>
+     */
+    @Operation(summary = "搜索文章分类")
+    @GetMapping("/admin/categories/search")
+    public Result<List<CategoryOptionDTO>> listCategoriesBySearch(ConditionVO condition) {
+        return Result.ok(categoryService.listCategoriesBySearch(condition));
+    }
 
     /**
      * 查看分类列表（包括搜索） 后台

@@ -19,16 +19,21 @@ import static com.tan00xu.enums.StatusCodeEnum.FAIL;
 public class BizException extends RuntimeException {
 
     /**
+     * 错误信息
+     */
+    private final String message;
+    /**
      * 错误码
      */
     private Integer code = FAIL.getCode();
 
     /**
-     * 错误信息
+     * 业务异常
+     *
+     * @param message 消息
      */
-    private final String message;
-
     public BizException(String message) {
+        //        super(message);
         this.message = message;
     }
 
@@ -38,6 +43,7 @@ public class BizException extends RuntimeException {
      * @param statusCodeEnum 状态码枚举
      */
     public BizException(StatusCodeEnum statusCodeEnum) {
+//        super(statusCodeEnum.getDesc());
         this.code = statusCodeEnum.getCode();
         this.message = statusCodeEnum.getDesc();
     }

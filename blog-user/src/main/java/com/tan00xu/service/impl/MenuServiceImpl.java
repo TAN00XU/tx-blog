@@ -5,16 +5,22 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tan00xu.dao.MenuDao;
+import com.tan00xu.dao.RoleMenuDao;
 import com.tan00xu.dto.LabelOptionDTO;
 import com.tan00xu.dto.MenuDTO;
 import com.tan00xu.dto.UserMenuDTO;
 import com.tan00xu.entity.Menu;
+import com.tan00xu.entity.RoleMenu;
+import com.tan00xu.exception.BizException;
 import com.tan00xu.service.MenuService;
 import com.tan00xu.util.BeanCopyUtils;
+import com.tan00xu.util.CmdOutputInformationUtils;
 import com.tan00xu.util.UserUtils;
 import com.tan00xu.vo.ConditionVO;
+import com.tan00xu.vo.MenuVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -33,6 +39,9 @@ import static com.tan00xu.constant.CommonConst.TRUE;
 public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuService {
     @Autowired
     private MenuDao menuDao;
+
+    @Autowired
+    private RoleMenuDao roleMenuDao;
 
     @Override
     public List<MenuDTO> listMenus(ConditionVO conditionVO) {
@@ -72,6 +81,46 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
         }
         return menuDTOList;
     }
+
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void saveOrUpdateMenu(MenuVO menuVO) {
+        CmdOutputInformationUtils.error(menuVO);
+        Long count = menuDao.selectCount(
+                new LambdaQueryWrapper<Menu>()
+                        .eq(Menu::getName, menuVO.getName())
+                        .or()
+                        .eq(!"Layout".equals(menuVO.getComponent()), Menu::getComponent, menuVO.getComponent())
+        );
+        if (count > 0 && menuVO.getId() == null) {
+            throw new BizException("新增失败！该菜单名已存在或该组件已在菜单下");
+        }
+        Menu menu = BeanCopyUtils.copyObject(menuVO, Menu.class);
+        this.saveOrUpdate(menu);
+    }
+
+    @Override
+    public void deleteMenu(Integer menuId) {
+        // 查询是否有角色关联
+        Long count = roleMenuDao.selectCount(
+                new LambdaQueryWrapper<RoleMenu>()
+                        .eq(RoleMenu::getMenuId, menuId));
+        if (count > 0) {
+            throw new BizException("菜单下有角色关联");
+        }
+        // 查询是否有子菜单
+        List<Integer> menuIdList = menuDao.selectList(
+                        new LambdaQueryWrapper<Menu>()
+                                .select(Menu::getId)
+                                .eq(Menu::getParentId, menuId))
+                .stream()
+                .map(Menu::getId)
+                .collect(Collectors.toList());
+        menuIdList.add(menuId);
+        menuDao.deleteBatchIds(menuIdList);
+    }
+
 
     @Override
     public List<UserMenuDTO> listUserMenus() {

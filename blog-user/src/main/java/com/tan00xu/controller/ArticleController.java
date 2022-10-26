@@ -3,7 +3,10 @@ package com.tan00xu.controller;
 import com.tan00xu.dto.ArchiveDTO;
 import com.tan00xu.dto.ArticleDTO;
 import com.tan00xu.dto.ArticleHomeDTO;
+import com.tan00xu.enums.FilePathEnum;
 import com.tan00xu.service.ArticleService;
+import com.tan00xu.strategy.context.UploadStrategyContext;
+import com.tan00xu.util.CmdOutputInformationUtils;
 import com.tan00xu.vo.PageResult;
 import com.tan00xu.vo.Result;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -29,6 +33,8 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    @Autowired
+    private UploadStrategyContext uploadStrategyContext;
 
     /**
      * 查看首页文章
@@ -79,5 +85,21 @@ public class ArticleController {
     public Result<?> saveArticleLike(@PathVariable("articleId") Integer articleId) {
         articleService.saveArticleLike(articleId);
         return Result.ok();
+    }
+
+    /**
+     * 上传文章封面
+     *
+     * @param file 文件
+     * @return {@link Result<String>} 文章图片地址
+     */
+    @Operation(summary = "上传文章封面")
+    @Parameter(name = "file", description = "文章封面", required = true)
+    @PostMapping("/admin/articles/images")
+    public Result<String> saveArticleImages(MultipartFile file) {
+        CmdOutputInformationUtils.error("\n\n\n======上传文章封面======\n\n\n");
+        return Result.ok(
+                uploadStrategyContext.executeUploadStrategy(file, FilePathEnum.ARTICLE.getPath())
+        );
     }
 }

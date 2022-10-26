@@ -28,6 +28,14 @@ public interface TagService extends IService<Tag> {
 
 
     /**
+     * 搜索文章标签 后台
+     *
+     * @param condition 条件
+     * @return 标签列表 {@link List}<{@link TagDTO}>
+     */
+    List<TagDTO> listTagsBySearch(ConditionVO condition);
+
+    /**
      * 查询标签列表 后台
      *
      * @param condition 条件
@@ -50,4 +58,5 @@ public interface TagService extends IService<Tag> {
      * @param tagVO 标签
      */
     void saveOrUpdateTag(TagVO tagVO);
+
 }

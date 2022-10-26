@@ -42,6 +42,19 @@ public class TagController {
 
 
     /**
+     * 搜索文章标签 后台
+     *
+     * @param condition 条件
+     * @return {@link Result}<{@link List}<{@link TagDTO}>>
+     */
+    @Operation(summary = "搜索文章标签")
+    @GetMapping("/admin/tags/search")
+    public Result<List<TagDTO>> listTagsBySearch(ConditionVO condition) {
+        return Result.ok(tagService.listTagsBySearch(condition));
+    }
+
+
+    /**
      * 查询标签列表 后台
      *
      * @param condition 条件
