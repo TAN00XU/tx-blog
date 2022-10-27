@@ -1,10 +1,12 @@
 package com.tan00xu.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tan00xu.dto.ArticleBackDTO;
 import com.tan00xu.dto.ArticleDTO;
 import com.tan00xu.dto.ArticleHomeDTO;
 import com.tan00xu.dto.ArticleRecommendDTO;
 import com.tan00xu.entity.Article;
+import com.tan00xu.vo.ConditionVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,6 +30,26 @@ public interface ArticleDao extends BaseMapper<Article> {
      * @return 文章列表
      */
     List<ArticleHomeDTO> listArticles(@Param("current") Long current, @Param("size") Long size);
+
+    /**
+     * 查询文章总量 后台
+     *
+     * @param condition 条件
+     * @return 文章总量
+     */
+    Integer countArticleBack(@Param("condition") ConditionVO condition);
+
+
+    /**
+     * 查询文章列表 后台
+     *
+     * @param current   当前
+     * @param size      条数
+     * @param condition 条件
+     * @return {@link List}<{@link ArticleBackDTO}>
+     */
+    List<ArticleBackDTO> listArticleBack(@Param("current") Long current, @Param("size") Long size, @Param("condition") ConditionVO condition);
+
 
     /**
      * 根据id查询文章

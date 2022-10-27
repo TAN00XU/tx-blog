@@ -13,7 +13,6 @@ import com.tan00xu.entity.Category;
 import com.tan00xu.exception.BizException;
 import com.tan00xu.service.CategoryService;
 import com.tan00xu.util.BeanCopyUtils;
-import com.tan00xu.util.CmdOutputInformationUtils;
 import com.tan00xu.util.PagingUtils;
 import com.tan00xu.vo.CategoryVO;
 import com.tan00xu.vo.ConditionVO;
@@ -83,7 +82,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> impl
 
     @Override
     public void saveOrUpdateCategory(CategoryVO categoryVO) {
-        CmdOutputInformationUtils.error("进入");
         // 判断分类名重复
         Category existCategory = categoryDao.selectOne(
                 new LambdaQueryWrapper<Category>()
@@ -97,7 +95,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> impl
                 .id(categoryVO.getId())
                 .categoryName(categoryVO.getCategoryName())
                 .build();
-        CmdOutputInformationUtils.error(category);
         this.saveOrUpdate(category);
     }
 }

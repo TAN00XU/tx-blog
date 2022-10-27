@@ -5,7 +5,7 @@ import lombok.Getter;
 
 
 /**
- * 区枚举类
+ * 时区枚举类
  *
  * @author 饮梦 TAN00XU
  * @date 2022/10/11 00:08:18

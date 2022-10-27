@@ -3,9 +3,13 @@ package com.tan00xu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tan00xu.dto.ArchiveDTO;
+import com.tan00xu.dto.ArticleBackDTO;
 import com.tan00xu.dto.ArticleDTO;
 import com.tan00xu.dto.ArticleHomeDTO;
 import com.tan00xu.entity.Article;
+import com.tan00xu.vo.ArticleVO;
+import com.tan00xu.vo.ConditionVO;
+import com.tan00xu.vo.LogicDeleteVO;
 import com.tan00xu.vo.PageResult;
 
 import java.util.List;
@@ -47,4 +51,44 @@ public interface ArticleService extends IService<Article> {
      * @param articleId 文章id
      */
     void saveArticleLike(Integer articleId);
+
+    /**
+     * 添加或修改文章 后台
+     *
+     * @param articleVO 文章VO
+     */
+    void saveOrUpdateArticle(ArticleVO articleVO);
+
+
+    /**
+     * 查询文章列表 后台
+     *
+     * @param condition 条件
+     * @return {@link PageResult}<{@link ArticleBackDTO}>
+     */
+    PageResult<ArticleBackDTO> listArticleBack(ConditionVO condition);
+
+    /**
+     * 根据id查询文章 后台
+     *
+     * @param articleId 文章id
+     * @return 文章 {@link ArticleVO}
+     */
+    ArticleVO getArticleBackById(Integer articleId);
+
+    /**
+     * 逻辑删除或恢复文章 后台
+     *
+     * @param logicDeleteVO 逻辑删除对象
+     */
+    void updateArticleDelete(LogicDeleteVO logicDeleteVO);
+
+
+    /**
+     * 物理删除文章 后台
+     *
+     * @param articleIdList 文章id集合
+     */
+    void deleteArticles(List<Integer> articleIdList);
+
 }

@@ -2,7 +2,6 @@ package com.tan00xu.strategy.impl;
 
 import com.tan00xu.exception.BizException;
 import com.tan00xu.strategy.UploadStrategy;
-import com.tan00xu.util.CmdOutputInformationUtils;
 import com.tan00xu.util.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +21,6 @@ public abstract class AbstractUploadStrategyImpl implements UploadStrategy {
 
     @Override
     public String uploadFile(MultipartFile file, String path) {
-        CmdOutputInformationUtils.error("\n\n\n文件路径1" + path + "\n\n\n");
         try {
             // 获取文件md5值
             String md5 = FileUtils.getMd5(file.getInputStream());

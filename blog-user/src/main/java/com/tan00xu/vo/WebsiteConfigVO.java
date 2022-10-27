@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+
 /**
- * 网站配置信息
+ * 网站配置VO类
  *
- * @author yezhiqiu
- * @date 2021/08/09
+ * @author 饮梦 TAN00XU
+ * @date 2022/10/27 10:41:27
  */
 @Data
 @AllArgsConstructor

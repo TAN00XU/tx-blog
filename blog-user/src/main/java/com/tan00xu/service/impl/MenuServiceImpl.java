@@ -14,7 +14,6 @@ import com.tan00xu.entity.RoleMenu;
 import com.tan00xu.exception.BizException;
 import com.tan00xu.service.MenuService;
 import com.tan00xu.util.BeanCopyUtils;
-import com.tan00xu.util.CmdOutputInformationUtils;
 import com.tan00xu.util.UserUtils;
 import com.tan00xu.vo.ConditionVO;
 import com.tan00xu.vo.MenuVO;
@@ -86,15 +85,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveOrUpdateMenu(MenuVO menuVO) {
-        CmdOutputInformationUtils.error(menuVO);
         Long count = menuDao.selectCount(
                 new LambdaQueryWrapper<Menu>()
                         .eq(Menu::getName, menuVO.getName())
-                        .or()
-                        .eq(!"Layout".equals(menuVO.getComponent()), Menu::getComponent, menuVO.getComponent())
         );
         if (count > 0 && menuVO.getId() == null) {
-            throw new BizException("新增失败！该菜单名已存在或该组件已在菜单下");
+            throw new BizException("新增失败！该菜单名已存在");
         }
         Menu menu = BeanCopyUtils.copyObject(menuVO, Menu.class);
         this.saveOrUpdate(menu);

@@ -2,6 +2,7 @@ package com.tan00xu.handler;
 
 import com.tan00xu.exception.BizException;
 import com.tan00xu.vo.Result;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -34,6 +35,7 @@ public class GlobalExceptionHandler {
 
     /**
      * 处理参数校验异常
+     * 使用@Validated
      *
      * @param e 异常
      * @return 接口异常信息
@@ -44,6 +46,11 @@ public class GlobalExceptionHandler {
                 VALID_ERROR.getCode(),
                 Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage()
         );
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public Result<?> errorHandler(HttpRequestMethodNotSupportedException e) {
+        return Result.fail(e);
     }
 
     /**

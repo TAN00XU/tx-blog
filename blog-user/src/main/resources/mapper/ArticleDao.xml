@@ -19,11 +19,12 @@
             <result column="tag_name" property="tagName"/>
         </collection>
     </resultMap>
+
     <!--查询首页文章-->
     <select id="listArticles" resultMap="articleHomeResultMap">
         SELECT a.id,
-               article_cover,
-               article_title,
+        article_cover,
+        article_title,
         <!--最长取出500-->
         SUBSTR(article_content, 1, 500) AS article_content,
         a.create_time,
@@ -31,27 +32,138 @@
         a.is_top,
         a.category_id,
         category_name,
-        t.id                            AS tag_id,
+        t.id AS tag_id,
         t.tag_name
         FROM (SELECT id,
-                     article_cover,
-                     article_title,
-                     article_content,
-                     type,
-                     is_top,
-                     create_time,
-                     category_id
-              FROM tb_article
-              WHERE is_delete = 0
-                AND status = 1
-              ORDER BY is_top DESC,
-                       id DESC
-              LIMIT #{current} , #{size}) a
-                 JOIN tb_category c ON a.category_id = c.id
-                 JOIN tb_article_tag atg ON a.id = atg.article_id
-                 JOIN tb_tag t ON t.id = atg.tag_id
+        article_cover,
+        article_title,
+        article_content,
+        type,
+        is_top,
+        create_time,
+        category_id
+        FROM tb_article
+        WHERE is_delete = 0
+        AND status = 1
+        ORDER BY is_top DESC,
+        id DESC
+        LIMIT #{current} , #{size}) a
+        JOIN tb_category c ON a.category_id = c.id
+        JOIN tb_article_tag atg ON a.id = atg.article_id
+        JOIN tb_tag t ON t.id = atg.tag_id
         ORDER BY a.is_top DESC,
-                 a.id DESC
+        a.id DESC
+    </select>
+
+    <select id="countArticleBack" resultType="java.lang.Integer">
+        SELECT
+        count(DISTINCT a.id)
+        from
+        tb_article a
+        LEFT JOIN tb_article_tag tat on a.id = tat.article_id
+        <where>
+            <if test="condition.isDelete!=null">
+                is_delete = #{condition.isDelete}
+            </if>
+            <if test="condition.keywords != null">
+                and article_title like concat('%',#{condition.keywords},'%')
+            </if>
+            <if test="condition.status != null">
+                and `status` = #{condition.status}
+            </if>
+            <if test="condition.categoryId != null">
+                and category_id = #{condition.categoryId}
+            </if>
+            <if test="condition.type != null">
+                and type = #{condition.type}
+            </if>
+            <if test="condition.tagId != null">
+                and tat.tag_id = #{condition.tagId}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="articleBackResultMap" type="com.tan00xu.dto.ArticleBackDTO">
+        <id column="id" property="id"/>
+        <result column="article_cover" property="articleCover"/>
+        <result column="article_title" property="articleTitle"/>
+        <result column="create_time" property="createTime"/>
+        <result column="type" property="type"/>
+        <result column="is_top" property="isTop"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="status" property="status"/>
+        <result column="category_name" property="categoryName"/>
+        <collection property="tagDTOList" ofType="com.tan00xu.dto.TagDTO">
+            <id column="tag_id" property="id"/>
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
+    <select id="listArticleBack" resultMap="articleBackResultMap">
+        SELECT
+        a.id,
+        article_cover,
+        article_title,
+        type,
+        is_top,
+        a.is_delete,
+        a.status,
+        a.create_time,
+        category_name,
+        t.id AS tag_id,
+        t.tag_name
+        FROM(
+        SELECT
+        id,
+        article_cover,
+        article_title,
+        type,
+        is_top,
+        is_delete,
+        `status`,
+        create_time,
+        category_id
+        FROM
+        tb_article
+        <where>
+            <if test="condition.isDelete != null">
+                is_delete = #{condition.isDelete}
+            </if>
+            <if test="condition.keywords != null">
+                and article_title like concat('%',#{condition.keywords},'%')
+            </if>
+            <if test="condition.status != null">
+                and status = #{condition.status}
+            </if>
+            <if test="condition.categoryId != null">
+                and category_id = #{condition.categoryId}
+            </if>
+            <if test="condition.type != null">
+                and type = #{condition.type}
+            </if>
+            <if test="condition.tagId != null">
+                and id in
+                (
+                SELECT
+                article_id
+                FROM
+                tb_article_tag
+                WHERE
+                tag_id = #{condition.tagId}
+                )
+            </if>
+        </where>
+
+        ORDER BY
+        is_top DESC,
+        id DESC
+        LIMIT #{current},#{size}
+        ) a
+        LEFT JOIN tb_category c ON c.id = a.category_id
+        LEFT JOIN tb_article_tag atg ON atg.article_id = a.id
+        LEFT JOIN tb_tag t ON t.id = atg.tag_id
+        ORDER BY
+        is_top DESC,
+        a.id DESC
     </select>
 
     <select id="getArticleById" resultType="com.tan00xu.dto.ArticleDTO">

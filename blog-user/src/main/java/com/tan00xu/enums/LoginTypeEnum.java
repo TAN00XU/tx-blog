@@ -3,11 +3,12 @@ package com.tan00xu.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+
 /**
- * 登录方式枚举
+ * 登录类型枚举类
  *
- * @author yezhiqiu
- * @date 2021/07/28
+ * @author 饮梦 TAN00XU
+ * @date 2022/10/27 10:42:49
  */
 @Getter
 @AllArgsConstructor

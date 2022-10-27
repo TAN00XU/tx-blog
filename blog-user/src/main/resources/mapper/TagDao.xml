@@ -24,4 +24,12 @@
         t.id DESC
         LIMIT #{current},#{size}
     </select>
+
+
+    <select id="listTagNameByArticleId" resultType="java.lang.String">
+        SELECT tag_name
+        FROM tb_tag t
+                 JOIN tb_article_tag tat ON t.id = tat.tag_id
+        WHERE article_id = #{articleId}
+    </select>
 </mapper>

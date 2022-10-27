@@ -5,11 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 /**
- * 评论数量dto
+ * 评论数DTO类
  *
- * @author yezhiqiu
- * @date 2022/01/23
+ * @author 饮梦 TAN00XU
+ * @date 2022/10/27 10:43:34
  */
 @Data
 @AllArgsConstructor

@@ -7,8 +7,10 @@ import com.tan00xu.vo.CommentVO;
 import com.tan00xu.vo.PageResult;
 
 /**
+ * 评论服务类
+ *
  * @author 饮梦 TAN00XU
- * @date 2022/10/17 22:00
+ * @date 2022/10/27 10:42:27
  */
 public interface CommentService extends IService<Comment> {
 
