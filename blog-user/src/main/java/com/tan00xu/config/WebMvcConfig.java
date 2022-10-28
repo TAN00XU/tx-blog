@@ -23,6 +23,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${upload.local.path}")
     public String fileRealPath;
 
+    @Value("${upload.local.mapping}")
+    public String mappingPath;
+
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
 
@@ -57,8 +61,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
                 //映射路径
-                .addResourceHandler("/articles/**")
+                .addResourceHandler(mappingPath + "/articles/**")
                 //上传文件路径
                 .addResourceLocations("file:" + fileRealPath + "articles\\");
+        registry.addResourceHandler(mappingPath + "/config/**")
+                .addResourceLocations("file:" + fileRealPath + "config\\");
+
     }
 }

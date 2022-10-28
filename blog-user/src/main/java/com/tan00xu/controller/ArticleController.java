@@ -7,7 +7,6 @@ import com.tan00xu.dto.ArticleHomeDTO;
 import com.tan00xu.enums.FilePathEnum;
 import com.tan00xu.service.ArticleService;
 import com.tan00xu.strategy.context.UploadStrategyContext;
-import com.tan00xu.util.CmdOutputInformationUtils;
 import com.tan00xu.vo.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -40,7 +39,7 @@ public class ArticleController {
      * @return {@link Result}<{@link List}<{@link ArticleHomeDTO}>>
      */
     @Operation(summary = "查看首页文章")
-    @GetMapping("/web/articles")
+    @GetMapping("/articles")
     public Result<List<ArticleHomeDTO>> listArticles() {
         return Result.ok(articleService.listArticles());
     }
@@ -52,7 +51,7 @@ public class ArticleController {
      * @return {@link Result}<{@link PageResult}<{@link ArchiveDTO}>>
      */
     @Operation(summary = "查看文章归档")
-    @GetMapping("/web/articles/archives")
+    @GetMapping("/articles/archives")
     public Result<PageResult<ArchiveDTO>> listArchives() {
         return Result.ok(articleService.listArchives());
     }
@@ -66,7 +65,7 @@ public class ArticleController {
      */
     @Operation(summary = "根据id查看文章")
     @Parameter(name = "articleId", description = "文章id", required = true)
-    @GetMapping("/web/articles/{articleId}")
+    @GetMapping("/articles/{articleId}")
     public Result<ArticleDTO> getArticleById(@PathVariable("articleId") Integer articleId) {
         return Result.ok(articleService.getArticleById(articleId));
     }
@@ -95,7 +94,6 @@ public class ArticleController {
     @Parameter(name = "file", description = "文章图片", required = true)
     @PostMapping("/admin/articles/images")
     public Result<String> saveArticleImages(MultipartFile file) {
-        CmdOutputInformationUtils.error("\n\n\n文件上传收到\n\n\n");
         return Result.ok(
                 uploadStrategyContext.executeUploadStrategy(file, FilePathEnum.ARTICLE.getPath())
         );
@@ -125,7 +123,6 @@ public class ArticleController {
     @Operation(summary = "后台查看文章列表")
     @GetMapping("/admin/articles")
     public Result<PageResult<ArticleBackDTO>> listArticleBack(ConditionVO conditionVO) {
-        CmdOutputInformationUtils.error("查询文章列表 后台=>" + conditionVO);
         return Result.ok(articleService.listArticleBack(conditionVO));
     }
 
@@ -141,6 +138,21 @@ public class ArticleController {
     public Result<ArticleVO> getArticleBackById(@PathVariable("articleId") Integer articleId) {
         return Result.ok(articleService.getArticleBackById(articleId));
     }
+
+
+    /**
+     * 更新文章置顶状态 后台
+     *
+     * @param articleTopVO 文章置顶信息
+     * @return {@link Result}<{@link ?}>
+     */
+    @Operation(summary = "修改文章置顶")
+    @PutMapping("/admin/articles/top")
+    public Result<?> updateArticleTop(@Validated @RequestBody ArticleTopVO articleTopVO) {
+        articleService.updateArticleTop(articleTopVO);
+        return Result.ok();
+    }
+
 
     /**
      * 逻辑删除或恢复文章 后台

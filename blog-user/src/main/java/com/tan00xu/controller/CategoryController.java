@@ -35,7 +35,7 @@ public class CategoryController {
      * @return {@link Result}<{@link PageResult}<{@link CategoryDTO}>>
      */
     @Operation(summary = "查看分类列表")
-    @GetMapping("/web/categories")
+    @GetMapping("/categories")
     public Result<PageResult<CategoryDTO>> listCategories() {
         return Result.ok(categoryService.listCategories());
     }

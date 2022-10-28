@@ -31,7 +31,7 @@ public class FriendlyLinkController {
      * @return {@link Result<FriendlyLinkDTO>} 友链列表
      */
     @Operation(summary = "查看友链列表")
-    @GetMapping("/web/links")
+    @GetMapping("/friendlyLinks")
     public Result<List<FriendlyLinkDTO>> listFriendLinks() {
         return Result.ok(friendlyLinkService.listFriendLinks());
     }

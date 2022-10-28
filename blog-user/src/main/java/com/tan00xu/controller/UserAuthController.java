@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.*;
  * @author 饮梦 TAN00XU
  * @date 2022/09/30 14:30:56
  */
-@Tag(name = "用户账户控制")
+@Tag(name = "用户账户")
 @RestController
-@RequestMapping("/web")
 public class UserAuthController {
     @Autowired
     private UserAuthService userAuthService;

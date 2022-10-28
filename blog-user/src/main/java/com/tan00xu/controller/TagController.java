@@ -35,7 +35,7 @@ public class TagController {
      * @return {@link Result<TagDTO>} 标签列表
      */
     @Operation(summary = "查询标签列表")
-    @GetMapping("/web/tags")
+    @GetMapping("/tags")
     public Result<PageResult<TagDTO>> listTags() {
         return Result.ok(tagService.listTags());
     }
@@ -79,7 +79,6 @@ public class TagController {
         tagService.deleteTag(tagIdList);
         return Result.ok();
     }
-
 
     /**
      * 添加或修改标签 后台

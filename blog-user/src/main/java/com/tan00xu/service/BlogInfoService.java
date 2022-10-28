@@ -1,6 +1,7 @@
 package com.tan00xu.service;
 
 
+import com.tan00xu.dto.BlogHomeInfoDTO;
 import com.tan00xu.vo.WebsiteConfigVO;
 
 /**
@@ -10,6 +11,16 @@ import com.tan00xu.vo.WebsiteConfigVO;
  * @date 2022/09/29 09:23:05
  */
 public interface BlogInfoService {
+
+
+    /**
+     * 获取博客首页信息
+     *
+     * @return 博客首页信息
+     */
+    BlogHomeInfoDTO getBlogHomeInfo();
+
+
     /**
      * 获取网站配置
      *
@@ -17,6 +28,13 @@ public interface BlogInfoService {
      */
     WebsiteConfigVO getWebsiteConfig();
 
+
+    /**
+     * 更新网站配置 后台
+     *
+     * @param websiteConfigVO 网站配置VO
+     */
+    void updateWebsiteConfig(WebsiteConfigVO websiteConfigVO);
 
     /**
      * 上传访客信息
@@ -32,4 +50,5 @@ public interface BlogInfoService {
      * @description 本数据直接存在redis中
      */
     String getAbout();
+
 }

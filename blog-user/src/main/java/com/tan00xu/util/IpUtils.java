@@ -1,6 +1,7 @@
 package com.tan00xu.util;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import eu.bitwalker.useragentutils.UserAgent;
 
 import javax.servlet.http.HttpServletRequest;
@@ -91,6 +92,9 @@ public class IpUtils {
             bufferedReader.close();
             Map map = JSON.parseObject(result.toString(), Map.class);
             List<Map<String, String>> data = (List) map.get("data");
+            if (!CollectionUtils.isNotEmpty(data)) {
+                return "未知";
+            }
             return data.get(0).get("location");
         } catch (Exception e) {
             e.printStackTrace();

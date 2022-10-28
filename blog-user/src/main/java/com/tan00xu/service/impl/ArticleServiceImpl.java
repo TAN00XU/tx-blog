@@ -261,6 +261,40 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
         return articleVO;
     }
 
+    @Override
+    public void updateArticleTop(ArticleTopVO articleTopVO) {
+        // 修改文章置顶状态
+        Article article = Article.builder()
+                .id(articleTopVO.getId())
+                .isTop(articleTopVO.getIsTop())
+                .build();
+        articleDao.updateById(article);
+    }
+
+    @Override
+    public void updateArticleDelete(LogicDeleteVO logicDeleteVO) {
+        // 修改文章逻辑删除状态
+        List<Article> articleList = logicDeleteVO.getIdList().stream()
+                .map(id -> Article.builder()
+                        .id(id)
+                        .isTop(FALSE)
+                        .isDelete(logicDeleteVO.getIsDelete())
+                        .build())
+                .collect(Collectors.toList());
+        this.updateBatchById(articleList);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void deleteArticles(List<Integer> articleIdList) {
+        // 删除文章标签关联
+        articleTagDao.delete(
+                new LambdaQueryWrapper<ArticleTag>()
+                        .in(ArticleTag::getArticleId, articleIdList)
+        );
+        // 删除文章
+        articleDao.deleteBatchIds(articleIdList);
+    }
 
     /**
      * 保存文章分类
@@ -328,28 +362,5 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
         }
     }
 
-    @Override
-    public void updateArticleDelete(LogicDeleteVO logicDeleteVO) {
-        // 修改文章逻辑删除状态
-        List<Article> articleList = logicDeleteVO.getIdList().stream()
-                .map(id -> Article.builder()
-                        .id(id)
-                        .isTop(FALSE)
-                        .isDelete(logicDeleteVO.getIsDelete())
-                        .build())
-                .collect(Collectors.toList());
-        this.updateBatchById(articleList);
-    }
 
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void deleteArticles(List<Integer> articleIdList) {
-        // 删除文章标签关联
-        articleTagDao.delete(
-                new LambdaQueryWrapper<ArticleTag>()
-                        .in(ArticleTag::getArticleId, articleIdList)
-        );
-        // 删除文章
-        articleDao.deleteBatchIds(articleIdList);
-    }
 }

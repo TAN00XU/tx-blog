@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 
@@ -17,9 +18,9 @@ import java.util.List;
  * @date 2022/10/27 10:41:27
  */
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Schema(description = "网站配置")
 public class WebsiteConfigVO {
 
@@ -33,12 +34,14 @@ public class WebsiteConfigVO {
      * 网站名称
      */
     @Schema(description = "网站名称", required = true)
+    @NotBlank(message = "网站名称不能为空")
     private String websiteName;
 
     /**
      * 网站作者
      */
     @Schema(description = "网站作者", required = true)
+    @NotBlank(message = "网站作者不能为空")
     private String websiteAuthor;
 
     /**

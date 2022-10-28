@@ -7,10 +7,7 @@ import com.tan00xu.dto.ArticleBackDTO;
 import com.tan00xu.dto.ArticleDTO;
 import com.tan00xu.dto.ArticleHomeDTO;
 import com.tan00xu.entity.Article;
-import com.tan00xu.vo.ArticleVO;
-import com.tan00xu.vo.ConditionVO;
-import com.tan00xu.vo.LogicDeleteVO;
-import com.tan00xu.vo.PageResult;
+import com.tan00xu.vo.*;
 
 import java.util.List;
 
@@ -75,6 +72,15 @@ public interface ArticleService extends IService<Article> {
      * @return 文章 {@link ArticleVO}
      */
     ArticleVO getArticleBackById(Integer articleId);
+
+
+    /**
+     * 更新文章置顶状态 后台
+     *
+     * @param articleTopVO 文章置顶信息
+     */
+    void updateArticleTop(ArticleTopVO articleTopVO);
+
 
     /**
      * 逻辑删除或恢复文章 后台

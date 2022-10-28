@@ -2,11 +2,20 @@ package com.tan00xu.service.impl;
 
 
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.tan00xu.dao.ArticleDao;
+import com.tan00xu.dao.CategoryDao;
+import com.tan00xu.dao.TagDao;
 import com.tan00xu.dao.WebsiteConfigDao;
+import com.tan00xu.dto.BlogHomeInfoDTO;
+import com.tan00xu.entity.Article;
+import com.tan00xu.entity.WebsiteConfig;
 import com.tan00xu.service.BlogInfoService;
+import com.tan00xu.service.PageService;
 import com.tan00xu.service.RedisService;
 import com.tan00xu.util.IpUtils;
+import com.tan00xu.vo.PageVO;
 import com.tan00xu.vo.WebsiteConfigVO;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
@@ -17,10 +26,13 @@ import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.tan00xu.constant.CommonConst.*;
 import static com.tan00xu.constant.RedisPrefixConst.*;
+import static com.tan00xu.enums.ArticleStatusEnum.PUBLIC;
 
 
 /**
@@ -32,9 +44,54 @@ import static com.tan00xu.constant.RedisPrefixConst.*;
 @Service
 public class BlogInfoServiceImpl implements BlogInfoService {
     @Autowired
+    private ArticleDao articleDao;
+
+    @Autowired
+    private CategoryDao categoryDao;
+
+    @Autowired
+    private TagDao tagDao;
+
+    @Autowired
     private RedisService redisService;
+
+    @Autowired
+    private PageService pageService;
+
     @Autowired
     private WebsiteConfigDao websiteConfigDao;
+    @Resource
+    private HttpServletRequest request;
+
+    @Override
+    public BlogHomeInfoDTO getBlogHomeInfo() {
+        // 查询文章数量
+        Long articleCount = articleDao.selectCount(
+                new LambdaQueryWrapper<Article>()
+                        .eq(Article::getStatus, PUBLIC.getStatus())
+                        .eq(Article::getIsDelete, FALSE)
+        );
+        // 查询分类数量
+        Long categoryCount = categoryDao.selectCount(null);
+        // 查询标签数量
+        Long tagCount = tagDao.selectCount(null);
+        // 查询访问量
+        Object count = redisService.get(BLOG_VIEWS_COUNT);
+        String viewsCount = Optional.ofNullable(count).orElse(0).toString();
+        // 查询网站配置
+        WebsiteConfigVO websiteConfig = this.getWebsiteConfig();
+        // 查询页面图片
+        List<PageVO> pageVOList = pageService.listPages();
+        // 封装数据
+        return BlogHomeInfoDTO.builder()
+                .articleCount(Math.toIntExact(articleCount))
+                .categoryCount(Math.toIntExact(categoryCount))
+                .tagCount(Math.toIntExact(tagCount))
+                .viewsCount(viewsCount)
+                .websiteConfig(websiteConfig)
+                .pageList(pageVOList)
+                .build();
+    }
 
     @Override
     public WebsiteConfigVO getWebsiteConfig() {
@@ -52,8 +109,17 @@ public class BlogInfoServiceImpl implements BlogInfoService {
         return websiteConfigVO;
     }
 
-    @Resource
-    private HttpServletRequest request;
+    @Override
+    public void updateWebsiteConfig(WebsiteConfigVO websiteConfigVO) {
+        // 修改网站配置
+        WebsiteConfig websiteConfig = WebsiteConfig.builder()
+                .id(1)
+                .config(com.alibaba.fastjson2.JSON.toJSONString(websiteConfigVO))
+                .build();
+        websiteConfigDao.updateById(websiteConfig);
+        // 删除缓存
+        redisService.del(WEBSITE_CONFIG);
+    }
 
     @Override
     public void report() {

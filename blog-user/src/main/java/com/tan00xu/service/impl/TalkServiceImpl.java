@@ -44,11 +44,12 @@ public class TalkServiceImpl extends ServiceImpl<TalkDao, Talk> implements TalkS
     @Override
     public List<String> listHomeTalks() {
         // 查询最新10条说说
-        return talkDao.selectList(new LambdaQueryWrapper<Talk>()
-                        .eq(Talk::getStatus, PUBLIC.getStatus())
-                        .orderByDesc(Talk::getIsTop)
-                        .orderByDesc(Talk::getId)
-                        .last("limit 10"))
+        return talkDao.selectList(
+                        new LambdaQueryWrapper<Talk>()
+                                .eq(Talk::getStatus, PUBLIC.getStatus())
+                                .orderByDesc(Talk::getIsTop)
+                                .orderByDesc(Talk::getId)
+                                .last("limit 10"))
                 .stream()
                 .map(item -> item.getContent().length() > 200 ?
                         HTMLUtils.deleteHMTLTag(item.getContent().substring(0, 200)) :

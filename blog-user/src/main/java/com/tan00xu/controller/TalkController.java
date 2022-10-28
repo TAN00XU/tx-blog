@@ -24,7 +24,7 @@ import java.util.List;
 public class TalkController {
     @Autowired
     private TalkService talkService;
- 
+
 
     /**
      * 查看首页说说
@@ -32,7 +32,7 @@ public class TalkController {
      * @return {@link Result<String>}
      */
     @Operation(summary = "查看首页说说")
-    @GetMapping("/web/home/talks")
+    @GetMapping("/home/talks")
     public Result<List<String>> listHomeTalks() {
         return Result.ok(talkService.listHomeTalks());
     }

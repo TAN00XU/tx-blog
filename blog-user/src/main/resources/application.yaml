@@ -37,7 +37,7 @@ spring:
     username: tan00xu@163.com
     password: YNXBMUERDASFOPNW
     host: smtp.163.com
-    nickname: 饮梦
+    nickname: 饮梦的个人博客
     # 开启加密验证
     properties:
       mail.smtp.ssl:
@@ -89,7 +89,9 @@ upload:
   mode: local
   local:
     # nginx映射本地文件路径，无域名则为 ip:83
-    url: http://localhost:8888/
+    url: http://localhost:8888/file/
     # 本地文件存储路径
     #    path: /usr/local/upload/
     path: "E:\\TAN00XU\\Desktop\\upload\\"
+    # WebMvc映射路径
+    mapping: "/file"

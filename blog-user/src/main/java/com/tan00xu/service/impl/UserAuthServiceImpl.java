@@ -72,7 +72,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
         EmailDTO emailDTO = EmailDTO.builder()
                 .email(username)
                 .subject("验证码")
-                .content("您的验证码为 " + code + " 有效期15分钟，请不要告诉他人哦！")
+                .content("您的验证码为 <span style='color: #00BBFF;text-underline: red'>" + code + "</span> 有效期15分钟，请不要告诉他人哦！")
                 .build();
 
         /**
