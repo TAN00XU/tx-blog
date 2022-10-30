@@ -1,9 +1,6 @@
 package com.tan00xu.controller;
 
-import com.tan00xu.dto.ArchiveDTO;
-import com.tan00xu.dto.ArticleBackDTO;
-import com.tan00xu.dto.ArticleDTO;
-import com.tan00xu.dto.ArticleHomeDTO;
+import com.tan00xu.dto.*;
 import com.tan00xu.enums.FilePathEnum;
 import com.tan00xu.service.ArticleService;
 import com.tan00xu.strategy.context.UploadStrategyContext;
@@ -42,6 +39,18 @@ public class ArticleController {
     @GetMapping("/articles")
     public Result<List<ArticleHomeDTO>> listArticles() {
         return Result.ok(articleService.listArticles());
+    }
+
+    /**
+     * 搜索文章
+     *
+     * @param condition 条件
+     * @return {@link Result<ArticleSearchDTO>} 文章列表
+     */
+    @Operation(summary = "搜索文章")
+    @GetMapping("/articles/search")
+    public Result<List<ArticleSearchDTO>> listArticlesBySearch(ConditionVO condition) {
+        return Result.ok(articleService.listArticlesBySearch(condition));
     }
 
 

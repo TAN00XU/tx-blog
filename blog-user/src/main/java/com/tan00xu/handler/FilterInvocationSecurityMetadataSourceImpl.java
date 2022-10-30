@@ -66,7 +66,6 @@ public class FilterInvocationSecurityMetadataSourceImpl implements FilterInvocat
         AntPathMatcher antPathMatcher = new AntPathMatcher();
         // 获取接口角色信息，若为匿名接口则放行，若无对应角色则禁止
         for (ResourceRoleDTO resourceRoleDTO : resourceRoleList) {
-            CmdOutputInformationUtils.debug(resourceRoleDTO);
             //路径和请求方式是否匹配
             if (antPathMatcher.match(resourceRoleDTO.getUrl(), url) && resourceRoleDTO.getRequestMethod().equals(method)) {
                 List<String> roleList = resourceRoleDTO.getRoleLabelList();

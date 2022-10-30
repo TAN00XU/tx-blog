@@ -2,10 +2,7 @@ package com.tan00xu.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.tan00xu.dto.ArchiveDTO;
-import com.tan00xu.dto.ArticleBackDTO;
-import com.tan00xu.dto.ArticleDTO;
-import com.tan00xu.dto.ArticleHomeDTO;
+import com.tan00xu.dto.*;
 import com.tan00xu.entity.Article;
 import com.tan00xu.vo.*;
 
@@ -26,6 +23,14 @@ public interface ArticleService extends IService<Article> {
      * @return 文章列表
      */
     List<ArticleHomeDTO> listArticles();
+
+    /**
+     * 搜索文章
+     *
+     * @param condition 条件
+     * @return 文章列表
+     */
+    List<ArticleSearchDTO> listArticlesBySearch(ConditionVO condition);
 
     /**
      * 查询文章归档

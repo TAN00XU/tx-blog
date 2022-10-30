@@ -29,7 +29,7 @@ public class Comment {
     private Integer id;
 
     /**
-     * 评论用户Id
+     * 评论用户信息Id
      */
     private Integer userId;
 

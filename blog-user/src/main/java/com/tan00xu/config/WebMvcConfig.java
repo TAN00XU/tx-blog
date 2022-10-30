@@ -62,10 +62,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry
                 //映射路径
                 .addResourceHandler(mappingPath + "/articles/**")
-                //上传文件路径
+                //上传文件路径(真实路径)
                 .addResourceLocations("file:" + fileRealPath + "articles\\");
+
         registry.addResourceHandler(mappingPath + "/config/**")
                 .addResourceLocations("file:" + fileRealPath + "config\\");
+
+        registry.addResourceHandler(mappingPath + "/avatar/**")
+                .addResourceLocations("file:" + fileRealPath + "avatar\\");
 
     }
 }

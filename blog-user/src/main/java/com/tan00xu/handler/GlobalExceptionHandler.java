@@ -48,6 +48,12 @@ public class GlobalExceptionHandler {
         );
     }
 
+    /**
+     * 处理Http 请求方法不支持异常
+     *
+     * @param e 异常
+     * @return
+     */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public Result<?> errorHandler(HttpRequestMethodNotSupportedException e) {
         return Result.fail(e);

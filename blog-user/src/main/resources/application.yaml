@@ -75,6 +75,7 @@ springdoc:
   swagger-ui:
     # 是否禁用 /swagger-ui/index.html
     enabled: true
+
 # 配置MybatisPlus
 mybatis-plus:
   #扫描路径
@@ -84,6 +85,7 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     #驼峰
     map-underscore-to-camel-case: true
+
 # 上传模式 可选 oss或local  （http://和最后的/一定不能去！！！）
 upload:
   mode: local
@@ -95,3 +97,10 @@ upload:
     path: "E:\\TAN00XU\\Desktop\\upload\\"
     # WebMvc映射路径
     mapping: "/file"
+# 搜索模式
+search:
+  mode: mysql
+
+# 网站前台域名（邮件通知用）
+website:
+  url: http://localhost:8080

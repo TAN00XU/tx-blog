@@ -29,7 +29,7 @@ public class Article {
     private Integer id;
 
     /**
-     * 作者
+     * 作者id
      */
     private Integer userId;
 

@@ -3,6 +3,7 @@ package com.tan00xu.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tan00xu.dto.MessageDTO;
 import com.tan00xu.entity.Message;
+import com.tan00xu.vo.MessageVO;
 import com.tan00xu.vo.Result;
 
 import java.util.List;
@@ -24,5 +25,11 @@ public interface MessageService extends IService<Message> {
      */
     Result<List<MessageDTO>> listMessages();
 
+    /**
+     * 添加留言弹幕
+     *
+     * @param messageVO 留言对象
+     */
+    void saveMessage(MessageVO messageVO);
 
 }

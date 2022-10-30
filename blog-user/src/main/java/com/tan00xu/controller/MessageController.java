@@ -1,12 +1,17 @@
 package com.tan00xu.controller;
 
+import com.tan00xu.annotation.AccessLimit;
 import com.tan00xu.dto.MessageDTO;
 import com.tan00xu.service.MessageService;
+import com.tan00xu.vo.MessageVO;
 import com.tan00xu.vo.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -34,4 +39,18 @@ public class MessageController {
         return messageService.listMessages();
     }
 
+
+    /**
+     * 添加留言
+     *
+     * @param messageVO 留言信息
+     * @return {@link Result<>}
+     */
+    @AccessLimit(seconds = 60, maxCount = 1)
+    @Operation(summary = "添加留言")
+    @PostMapping("/messages")
+    public Result<?> saveMessage(@Validated @RequestBody MessageVO messageVO) {
+        messageService.saveMessage(messageVO);
+        return Result.ok();
+    }
 }

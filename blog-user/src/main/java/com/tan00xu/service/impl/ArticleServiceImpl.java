@@ -17,6 +17,7 @@ import com.tan00xu.entity.Category;
 import com.tan00xu.entity.Tag;
 import com.tan00xu.exception.BizException;
 import com.tan00xu.service.*;
+import com.tan00xu.strategy.context.SearchStrategyContext;
 import com.tan00xu.util.BeanCopyUtils;
 import com.tan00xu.util.CommonUtils;
 import com.tan00xu.util.PagingUtils;
@@ -72,9 +73,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
     @Autowired
     private ArticleTagService articleTagService;
 
+    @Autowired
+    private SearchStrategyContext searchStrategyContext;
+
     @Override
     public List<ArticleHomeDTO> listArticles() {
         return articleDao.listArticles(PagingUtils.getLimitCurrent(), PagingUtils.getSize());
+    }
+
+    @Override
+    public List<ArticleSearchDTO> listArticlesBySearch(ConditionVO condition) {
+        return searchStrategyContext.executeSearchStrategy(condition.getKeywords());
     }
 
     @Override

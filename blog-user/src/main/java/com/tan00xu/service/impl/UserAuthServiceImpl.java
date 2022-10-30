@@ -81,7 +81,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
          *  rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, "", new Message(JSON.toJSONBytes(emailDTO), new MessageProperties()));
          *  //设置对消息进行序列化
          *  rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
-         *  序列化已写入配置中
+         *  序列化操作已写入配置中完成
          */
 
         rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, "", emailDTO);
