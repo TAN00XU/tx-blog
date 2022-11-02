@@ -17,6 +17,7 @@ import static com.tan00xu.constant.CommonConst.FALSE;
 
 /**
  * 用户详细信息dto类
+ * implements org.springframework.security.core.userdetails.UserDetails
  *
  * @author 饮梦 TAN00XU
  * @date 2022/10/01 11:57:10

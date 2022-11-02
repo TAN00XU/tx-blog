@@ -100,7 +100,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 // 关闭跨站请求防护
-                .csrf().disable().exceptionHandling()
+                .csrf().disable()
+                .exceptionHandling()
                 // 未登录处理
                 .authenticationEntryPoint(authenticationEntryPoint)
                 // 权限不足处理
