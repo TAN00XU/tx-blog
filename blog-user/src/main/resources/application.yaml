@@ -97,6 +97,7 @@ upload:
     path: "E:\\TAN00XU\\Desktop\\upload\\"
     # WebMvc映射路径
     mapping: "/file"
+    
 # 搜索模式
 search:
   mode: mysql
