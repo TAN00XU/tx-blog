@@ -35,7 +35,7 @@ spring:
   # 邮箱配置
   mail:
     username: tan00xu@163.com
-    password: YNXBMUERDASFOPNW
+    password: 密码
     host: smtp.163.com
     nickname: 饮梦的个人博客
     # 开启加密验证
